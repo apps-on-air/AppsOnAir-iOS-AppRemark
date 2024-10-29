@@ -1,0 +1,45 @@
+PODS:
+  - AppsOnAir-AppRemark (1.0.0):
+    - AppsOnAir-Core
+    - iOSDropDown
+    - IQKeyboardManagerSwift
+    - Toast-Swift
+    - ZLImageEditor
+  - AppsOnAir-Core (0.0.1):
+    - ReachabilitySwift
+  - iOSDropDown (0.4.0)
+  - IQKeyboardManagerSwift (6.5.16)
+  - ReachabilitySwift (5.2.4)
+  - Toast-Swift (5.1.1)
+  - ZLImageEditor (2.0.3):
+    - ZLImageEditor/Core (= 2.0.3)
+  - ZLImageEditor/Core (2.0.3)
+
+DEPENDENCIES:
+  - AppsOnAir-AppRemark (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - AppsOnAir-Core
+    - iOSDropDown
+    - IQKeyboardManagerSwift
+    - ReachabilitySwift
+    - Toast-Swift
+    - ZLImageEditor
+
+EXTERNAL SOURCES:
+  AppsOnAir-AppRemark:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AppsOnAir-AppRemark: 16f0ecfbfb51e740cd7fcac74b23dd17224dba29
+  AppsOnAir-Core: 220848815951591f32fd61a5b28e4a9cf83d0d96
+  iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
+  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
+  ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
+  Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
+  ZLImageEditor: 56ca892136c1c2d9a4e5ad6c4b961259a5219bef
+
+PODFILE CHECKSUM: 1316ab75c2ea83a5218029c0e71057f655b41f5d
+
+COCOAPODS: 1.15.2

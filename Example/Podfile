@@ -1,0 +1,14 @@
+use_frameworks!
+
+platform :ios, '12.0'
+
+target 'AppsOnAir-AppRemark_Example' do
+  pod 'AppsOnAir-AppRemark', :path => '../'
+
+  
+  target 'AppsOnAir-AppRemark_Tests' do
+    inherit! :search_paths
+
+
+  end
+end

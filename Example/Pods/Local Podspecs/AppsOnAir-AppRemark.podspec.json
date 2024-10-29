@@ -1,0 +1,44 @@
+{
+  "name": "AppsOnAir-AppRemark",
+  "version": "1.0.0",
+  "summary": "AppsOnAir AppRemark",
+  "description": "Appsonair services for user feedback submission.",
+  "homepage": "https://github.com/164989979/AppsOnAir-AppRemark",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "devtools-logicwind": "devtools@logicwind.com"
+  },
+  "source": {
+    "git": "https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git",
+    "tag": "1.0.0"
+  },
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "12.0"
+  },
+  "dependencies": {
+    "IQKeyboardManagerSwift": [
+
+    ],
+    "iOSDropDown": [
+
+    ],
+    "Toast-Swift": [
+
+    ],
+    "ZLImageEditor": [
+
+    ],
+    "AppsOnAir-Core": [
+
+    ]
+  },
+  "resources": [
+    "AppsOnAir-AppRemark/Assets/**/*"
+  ],
+  "source_files": "AppsOnAir-AppRemark/Classes/**/*",
+  "swift_version": "5.0"
+}
