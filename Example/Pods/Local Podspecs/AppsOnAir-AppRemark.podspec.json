@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "summary": "AppsOnAir AppRemark",
   "description": "Appsonair services for user feedback submission.",
-  "homepage": "https://github.com/164989979/AppsOnAir-AppRemark",
+  "homepage": "https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup/",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "IQKeyboardManagerSwift": [
-
+      "~> 6.5.16"
     ],
     "iOSDropDown": [
 

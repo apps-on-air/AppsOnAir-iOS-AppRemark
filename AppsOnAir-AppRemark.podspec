@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.swift_version  = '5.0'
   s.ios.deployment_target = '12.0'
 
-  s.dependency 'IQKeyboardManagerSwift'
+  s.dependency 'IQKeyboardManagerSwift', '~> 6.5.16'
   s.dependency 'iOSDropDown'
   s.dependency 'Toast-Swift'
   s.dependency 'ZLImageEditor'

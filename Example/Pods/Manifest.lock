@@ -2,7 +2,7 @@ PODS:
   - AppsOnAir-AppRemark (1.0.0):
     - AppsOnAir-Core
     - iOSDropDown
-    - IQKeyboardManagerSwift
+    - IQKeyboardManagerSwift (~> 6.5.16)
     - Toast-Swift
     - ZLImageEditor
   - AppsOnAir-Core (0.0.1):
@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppsOnAir-AppRemark: 16f0ecfbfb51e740cd7fcac74b23dd17224dba29
+  AppsOnAir-AppRemark: 4ab8c6ecadd86ebc273d3976bacf6ed49e3e845a
   AppsOnAir-Core: 220848815951591f32fd61a5b28e4a9cf83d0d96
   iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
@@ -42,4 +42,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1316ab75c2ea83a5218029c0e71057f655b41f5d
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
