@@ -92,10 +92,10 @@ Objective-c
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
        
-    // App Sync Class instance create
+    // App Remark Class instance create
     self.appRemarkService = [AppRemarkService shared];
     
-    // Help to enable sync manager for app with directory for showNativeUi handling and completion method
+    // Help to initialize remark services and customized the screen also using optional
     [self.appRemarkService initializeWithOptions:@{@"appBarBackgroundColor": @"DAF7A6"} shakeGestureEnable:true];
     // Override point for customization after application launch.
     return YES;
@@ -146,7 +146,7 @@ class ViewController: UIViewController {
     
           // Define the action when button is pressed
            @objc func buttonPressed() {
-               // Help to enable remark services where using Options customize the remark screen and customize text and raiseNewTicket is true for opening the remark screen on particular event , without capture screenshot and raiseNewTicket is set to false for only customize the remark screen  and extraPayload is for added custom and additional params.
+               // Help to open the manually open feedback screen 
                appsOnAirStateServices.addRemark(extraPayload: ["XX":"XX"])
            }
 
@@ -191,6 +191,7 @@ Objective-c
        [self.view addSubview:ctaButton];
 }
 - (void)openNextScreen {
+     // Help to open the manually open feedback screen 
     [self.appRemarkService addRemarkWithExtraPayload:@{@"XX":@"XX"}];
 }
 
@@ -201,22 +202,23 @@ Objective-c
 ## Change properties (optional)
 Here are the available options (optional) and these options will help you customize your app to look better and feel more polished:
 
-| No. | Option Name                  | Description      
-|-----|------------------------------|-------------------------------------------------------
-| 1   | appBarBackgroundColor       | Sets the navigation bar background color (Hex value).
-| 2   | appBarTitleText             | Sets the navigation bar title text.               
-| 3   | appBarTitleColor            | Sets the navigation bar title color (Hex value).    
-| 4   | pageBackgroundColor         | Sets the page background color (Hex value).           
-| 5   | remarkTypeLabelText         | Sets the label ticket text.                      
-| 6   | labelColor                  | Sets the label ticket text color.                 
-| 7   | inputTextColor              | Sets the input field text color.                     
-| 8   | hintColor                   | Sets the input field hint text color.               
-| 9   | descriptionMaxLength        | Sets the character limit for the description field (default 255).
-| 10  | descriptionLabelText        | Sets the description label text.                    
-| 11  | descriptionHintText         | Sets the description hint text.                 
-| 12  | buttonText                  | Sets the submit button text.                     
-| 13  | buttonTextColor             | Sets the submit button text color.                   
-| 14  | buttonBackgroundColor       | Sets the submit button background color. 
+| No. | Option Name                  | Data Type  | Description                                          |
+|-----|------------------------------|------------|------------------------------------------------------|
+| 1   | appBarBackgroundColor       | `String`   | Sets the navigation bar background color (Hex value). |
+| 2   | appBarTitleText             | `String`   | Sets the navigation bar title text.                 |
+| 3   | appBarTitleColor            | `String`   | Sets the navigation bar title color (Hex value).     |
+| 4   | pageBackgroundColor         | `String`   | Sets the page background color (Hex value).          |
+| 5   | remarkTypeLabelText         | `String`   | Sets the label ticket text.                         |
+| 6   | labelColor                  | `String`   | Sets the label ticket text color.                   |
+| 7   | inputTextColor              | `String`   | Sets the input field text color.                    |
+| 8   | hintColor                   | `String`   | Sets the input field hint text color.               |
+| 9   | descriptionMaxLength        | `Int`      | Sets the character limit for the description field (default 255). |
+| 10  | descriptionLabelText        | `String`   | Sets the description label text.                    |
+| 11  | descriptionHintText         | `String`   | Sets the description hint text.                     |
+| 12  | buttonText                  | `String`   | Sets the submit button text.                        |
+| 13  | buttonTextColor             | `String`   | Sets the submit button text color.                  |
+| 14  | buttonBackgroundColor       | `String`   | Sets the submit button background color.            |
+
 
 ## Documentation
 more detail refer this [documentation](https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup).

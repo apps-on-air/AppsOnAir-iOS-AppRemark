@@ -107,6 +107,7 @@ class RemarkController: UIViewController {
             self.dropDown.addCornerRadius(raduis: raduis)
             self.dropDown.handleKeyboard = false
             self.dropDown.checkMarkEnabled = false
+            self.dropDown.itemsColor = sColorTextBlack
             self.dropDown.didSelect{(selectedText , index ,id) in
                 self.view.endEditing(true)
                 self.dropDown.text = self.ticketType[index]
@@ -116,6 +117,7 @@ class RemarkController: UIViewController {
             self.lblDescription.textColor =  UIColor.init(hex: labelColor) ?? sColorTextLightGray
     
             self.descriptionCharLimit.text = "0/\(txtDescriptionCharLimit)"
+            self.descriptionCharLimit.textColor = sColorTextBlack
           
             self.txtDescription.addCornerRadius(raduis: raduis)
             self.txtDescription.delegate = self
