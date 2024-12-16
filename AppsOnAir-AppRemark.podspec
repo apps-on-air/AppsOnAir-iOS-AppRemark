@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '1.0.0'
+  s.version          = '0.1.0'
   s.summary          = 'AppsOnAir AppRemark'
 
   s.description      = 'Appsonair services for user feedback submission.'
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.dependency 'Toast-Swift'
   s.dependency 'ZLImageEditor'
   # AppsOnAir Core pod
-  s.dependency 'AppsOnAir-Core' 
+  s.dependency 'AppsOnAir-Core'
   
   # Access the all the UI File within the pod 
   s.resources = ['AppsOnAir-AppRemark/Assets/**/*'] # for access SwiftUI  inside Feedbacks
