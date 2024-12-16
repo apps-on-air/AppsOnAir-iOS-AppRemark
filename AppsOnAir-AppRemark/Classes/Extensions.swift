@@ -83,15 +83,18 @@ extension UIViewController {
     }
     
     @objc private func swizzled_viewDidDisappear(_ animated: Bool) {
-        self.swizzled_viewDidDisappear(animated)
                if let name = NSStringFromClass(type(of: self)).components(separatedBy: ".").last {
                
                     // Check the name and perform actions accordingly
                 
                    if((name == "ZLEditImageViewController" || name == "RemarkController") && isBeingDismissed) {
+                       if (name == "ZLEditImageViewController") {
+                           NotificationCenter.default.post(name: NSNotification.Name("visibilityChanges"), object: nil, userInfo: ["isPresented": false])
+                       }
                        isFeedbackInProgress = false
                    }
                }
+        self.swizzled_viewDidDisappear(animated)
        }
     
     @objc func swizzled_dealloc() {
