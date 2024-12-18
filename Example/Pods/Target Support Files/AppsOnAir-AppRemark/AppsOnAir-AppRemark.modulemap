@@ -1,0 +1,6 @@
+framework module AppsOnAir_AppRemark {
+  umbrella header "AppsOnAir-AppRemark-umbrella.h"
+
+  export *
+  module * { export * }
+}
