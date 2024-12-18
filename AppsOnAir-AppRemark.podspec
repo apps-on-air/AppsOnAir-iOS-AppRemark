@@ -29,7 +29,10 @@ Pod::Spec.new do |s|
   s.dependency 'AppsOnAir-Core'
   
   # Access the all the UI File within the pod 
-  s.resources = ['AppsOnAir-AppRemark/Assets/**/*'] # for access SwiftUI  inside Feedbacks
+  s.resource_bundles = {
+    'AppsOnAir-AppRemark' => ['AppsOnAir-AppRemark/Assets/**/*']
+  } # for access SwiftUI  inside Feedbacks 
+  
   
   s.source_files = 'AppsOnAir-AppRemark/Classes/**/*'
   

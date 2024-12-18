@@ -135,9 +135,9 @@ class RemarkController: UIViewController {
             
             clViewHeight.constant = screenHeight * 0.024
             clView?.collectionViewLayout = layout
-        
-           // let bundle = Bundle(for: type(of: self))
-            let bundle = Bundle(identifier: "org.cocoapods.AppsOnAir-AppRemark")
+    
+            let bundleURL = Bundle(for: RemarkController.self).url(forResource: "AppsOnAir-AppRemark", withExtension: "bundle")
+            let bundle = Bundle(url: bundleURL ?? URL(fileURLWithPath: ""))
             clView?.register(UINib(nibName: "ImageViewCell", bundle: bundle), forCellWithReuseIdentifier: "ImageViewCell")
             clView?.register(UINib(nibName: "AddImageCVCell", bundle: bundle), forCellWithReuseIdentifier: "AddImageCVCell")
             

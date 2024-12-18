@@ -13,11 +13,11 @@ import AppsOnAir_AppRemark
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let appsOnAirStateServices = AppRemarkService.shared
+    let appsOnAirRemarkServices = AppRemarkService.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appsOnAirStateServices.initialize(options: ["inputTextColor":"FF0000","descriptionHintText":"Enter feedback"],shakeGestureEnable: true)
+        appsOnAirRemarkServices.initialize(options: ["inputTextColor":"FF0000","descriptionHintText":"Enter feedback"],shakeGestureEnable: true)
         return true
     }
 

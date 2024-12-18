@@ -215,7 +215,8 @@ extension UIViewController {
     public func showRemarkScreen(screenshot: UIImage? = nil) {
         // initialize UI StoryBoard
         
-        let bundle = Bundle(identifier: "org.cocoapods.AppsOnAir-AppRemark")
+        let bundleURL = Bundle(for: RemarkController.self).url(forResource: "AppsOnAir-AppRemark", withExtension: "bundle")
+        let bundle = Bundle(url: bundleURL ?? URL(fileURLWithPath: ""))
         let storyboard = UIStoryboard(name: "AppRemark", bundle: bundle)
         let Vc = storyboard.instantiateViewController(withIdentifier: "RemarkController") as? RemarkController
         

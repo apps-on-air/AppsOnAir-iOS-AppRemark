@@ -122,7 +122,7 @@ Objective-c
 Swift / SwiftUI
 ```swift
 class ViewController: UIViewController {
-    let appsOnAirStateServices = AppRemarkService.shared
+    let appsOnAirRemarkServices = AppRemarkService.shared
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,7 +147,7 @@ class ViewController: UIViewController {
           // Define the action when button is pressed
            @objc func buttonPressed() {
                // Help to open the manually open feedback screen 
-               appsOnAirStateServices.addRemark(extraPayload: ["XX":"XX"])
+               appsOnAirRemarkServices.addRemark(extraPayload: ["XX":"XX"])
            }
 
 

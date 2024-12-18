@@ -36,9 +36,11 @@
 
     ]
   },
-  "resources": [
-    "AppsOnAir-AppRemark/Assets/**/*"
-  ],
+  "resource_bundles": {
+    "AppsOnAir-AppRemark": [
+      "AppsOnAir-AppRemark/Assets/**/*"
+    ]
+  },
   "source_files": "AppsOnAir-AppRemark/Classes/**/*",
   "swift_version": "5.0"
 }

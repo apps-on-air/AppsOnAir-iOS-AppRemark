@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppsOnAir-AppRemark: 35888fef9169f2356c4234521c79b1412ee26cab
+  AppsOnAir-AppRemark: 7bb45a97b03d17cef400d20e6b08160b36228e34
   AppsOnAir-Core: 220848815951591f32fd61a5b28e4a9cf83d0d96
   iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
