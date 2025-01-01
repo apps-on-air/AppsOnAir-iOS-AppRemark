@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'AppsOnAir AppRemark'
 
   s.description      = 'Appsonair services for user feedback submission.'

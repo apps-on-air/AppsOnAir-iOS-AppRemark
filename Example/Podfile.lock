@@ -1,5 +1,5 @@
 PODS:
-  - AppsOnAir-AppRemark (0.1.0):
+  - AppsOnAir-AppRemark (0.2.0):
     - AppsOnAir-Core
     - iOSDropDown
     - IQKeyboardManagerSwift (~> 6.5.16)
@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppsOnAir-AppRemark: 7bb45a97b03d17cef400d20e6b08160b36228e34
+  AppsOnAir-AppRemark: 6c7107ae29311ac38ccd043ba6f428cdf994b933
   AppsOnAir-Core: 220848815951591f32fd61a5b28e4a9cf83d0d96
   iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
