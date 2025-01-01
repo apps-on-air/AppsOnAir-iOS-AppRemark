@@ -17,13 +17,6 @@ simply add the following line to your Podfile:
 pod 'AppsOnAir-AppRemark'
 ```
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. To use AppsOnAir-AppRemark with Swift Package Manger, add it to `dependencies` in your `Package.swift`
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git")
-]
-```
 ## Requirements
 
 Minimum deployment target: 12.0
