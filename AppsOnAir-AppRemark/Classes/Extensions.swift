@@ -142,6 +142,7 @@ extension UIViewController {
             .adjustTools([.brightness, .contrast, .saturation])
         
         ZLEditImageViewController.showEditImageVC(parentVC: self, image: screenshot ?? UIImage()) { image, Editmodel in
+            NotificationCenter.default.post(name: NSNotification.Name("visibilityChanges"), object: nil, userInfo: ["isPresented": true])
             screenshot = image
             self.showRemarkScreen(screenshot: screenshot)   
         }
