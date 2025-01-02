@@ -2,11 +2,11 @@
 struct EnvironmentConfig{
     
 // MARK: - Development Config:
-    static let serverBaseURl = "https://server.feature.appsonair.com"
+    // static let serverBaseURl = "https://server.feature.appsonair.com"
     
     
 // MARK: - Production Config:
-//    static let serverBaseURl = "https://server.appsonair.com/"
+   static let serverBaseURl = "https://server.appsonair.com"
     
     
 // MARK: - API URL:
