@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appOnAirRemarkService.initialize(options: ["appBarBackgroundColor":"DAF7A6"],shakeGestureEnable: false)
+        appOnAirRemarkService.initialize(shakeGestureEnable: false,options: ["appBarBackgroundColor":"DAF7A6"])
         return true
     }
 }
@@ -89,7 +89,7 @@ Objective-c
     self.appRemarkService = [AppRemarkService shared];
     
     // Help to initialize remark services and customized the screen also using optional
-    [self.appRemarkService initializeWithOptions:@{@"appBarBackgroundColor": @"DAF7A6"} shakeGestureEnable:true];
+    [self.appRemarkService initializeWithShakeGestureEnable:true options:@{@"appBarBackgroundColor": @"DAF7A6"}];
     // Override point for customization after application launch.
     return YES;
 }
