@@ -1,15 +1,10 @@
 
 struct EnvironmentConfig{
     
-// MARK: - Development Config:
-    static let serverBaseURl = "https://server.feature.appsonair.com"
+// MARK: - Server API URL:
+   static let serverBaseURl = "https://server.appsonair.com"
     
-    
-// MARK: - Production Config:
-//    static let serverBaseURl = "https://server.appsonair.com/"
-    
-    
-// MARK: - API URL:
+// MARK: - API Endpoints:
     static let serverURL = serverBaseURl + "/feedback"
     static let getSignInURL = serverBaseURl + "/signed-url"
 }
