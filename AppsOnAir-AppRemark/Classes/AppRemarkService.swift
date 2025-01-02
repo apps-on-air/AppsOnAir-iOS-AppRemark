@@ -63,7 +63,7 @@ public class AppRemarkService:NSObject {
     //MARK: - Methods
         
     /// setup remark screen with options for customize and shakeGestureEnable is for enable shake Gesture , default it is true
-    @objc public func initialize(options: NSDictionary = [:],shakeGestureEnable:Bool = true) {
+    @objc public func initialize(shakeGestureEnable:Bool = true,options: NSDictionary = [:]) {
         
         // Help to initialize the core services of AppsOnAir
         appsOnAirCore.initialize()

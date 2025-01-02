@@ -331,7 +331,7 @@ class RemarkController: UIViewController {
                                     DispatchQueue.global().async {
                                         sleep(1)//Delay to display toast message
                                         DispatchQueue.main.async {
-                                            self.dismiss(animated: true, completion: nil)
+                                            self.dismissController()
                                             self.hideLoader()
                                         }
                                     }

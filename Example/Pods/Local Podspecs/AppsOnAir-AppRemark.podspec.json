@@ -1,6 +1,6 @@
 {
   "name": "AppsOnAir-AppRemark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "summary": "AppsOnAir AppRemark",
   "description": "Appsonair services for user feedback submission.",
   "homepage": "https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup/",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git",
-    "tag": "0.1.0"
+    "tag": "0.2.0"
   },
   "swift_versions": "5.0",
   "platforms": {

@@ -17,13 +17,6 @@ simply add the following line to your Podfile:
 pod 'AppsOnAir-AppRemark'
 ```
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. To use AppsOnAir-AppRemark with Swift Package Manger, add it to `dependencies` in your `Package.swift`
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git")
-]
-```
 ## Requirements
 
 Minimum deployment target: 12.0
@@ -70,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appOnAirRemarkService.initialize(options: ["appBarBackgroundColor":"DAF7A6"],shakeGestureEnable: false)
+        appOnAirRemarkService.initialize(shakeGestureEnable: false,options: ["appBarBackgroundColor":"DAF7A6"])
         return true
     }
 }
@@ -96,7 +89,7 @@ Objective-c
     self.appRemarkService = [AppRemarkService shared];
     
     // Help to initialize remark services and customized the screen also using optional
-    [self.appRemarkService initializeWithOptions:@{@"appBarBackgroundColor": @"DAF7A6"} shakeGestureEnable:true];
+    [self.appRemarkService initializeWithShakeGestureEnable:true options:@{@"appBarBackgroundColor": @"DAF7A6"}];
     // Override point for customization after application launch.
     return YES;
 }
