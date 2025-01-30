@@ -13,6 +13,8 @@ var isFeedbackInProgress = false
 
 
 extension UIImage {
+    
+    ///get image Filetype
     func getFileType() -> String? {
         // Convert the UIImage to PNG data
         if self.pngData() != nil {
@@ -27,7 +29,8 @@ extension UIImage {
         return nil
     }
     
-    func getByteData() -> Data? {
+    ///get Image size in Bytes
+    func getImageSize() -> Data? {
         // Convert the UIImage to PNG data
         if self.pngData() != nil {
             return self.pngData()
@@ -242,7 +245,12 @@ extension UIViewController {
         Vc?.hintColor = appRemarkServices.hintColor
         
         Vc?.descriptionLabelText = appRemarkServices.descriptionLabelText 
-        Vc?.txtDescriptionCharLimit = appRemarkServices.descriptionMaxLength ?? 255
+        let defaultLimit = 255
+        if let limit = appRemarkServices.descriptionMaxLength, limit > 0 {
+            Vc?.txtDescriptionCharLimit = limit
+        } else {
+            Vc?.txtDescriptionCharLimit = defaultLimit
+        }
         Vc?.txtDescriptionHintText = appRemarkServices.descriptionHintText
         
         Vc?.buttonText = appRemarkServices.buttonText

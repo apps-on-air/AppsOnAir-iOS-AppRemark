@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.summary          = 'AppsOnAir AppRemark'
 
   s.description      = 'Appsonair services for user feedback submission.'
@@ -22,11 +22,11 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '12.0'
 
   s.dependency 'IQKeyboardManagerSwift', '~> 6.5.16'
-  s.dependency 'iOSDropDown'
-  s.dependency 'Toast-Swift'
-  s.dependency 'ZLImageEditor'
+  s.dependency 'iOSDropDown', '~> 0.4.0'
+  s.dependency 'Toast-Swift', '~> 5.1.1'
+  s.dependency 'ZLImageEditor','~> 2.0.3'
   # AppsOnAir Core pod
-  s.dependency 'AppsOnAir-Core'
+  s.dependency 'AppsOnAir-Core', '~> 0.0.2'
   
   # Access the all the UI File within the pod 
   s.resource_bundles = {

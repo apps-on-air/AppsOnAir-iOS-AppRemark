@@ -49,7 +49,7 @@ struct RemarkApiService {
     /// API for upload image on sepcifc bucket siginURL .  (to get signIn URL use  getSignInURL())
     static func apiUploadImage(image: UIImage,signUrl:String,completion: @escaping(Bool) -> ()) {
         // Convert the UIImage to Data for Upload Image
-        guard let imageData = image.getByteData() else {
+        guard let imageData = image.getImageSize() else {
             Logger.logInternal(errorImageData)
             completion(false)
             return
@@ -115,7 +115,7 @@ struct RemarkApiService {
         task.resume()
     }
 
-    /// API for add App reamrk data including upload image URLs to appsOnAir server.
+    /// API for add App remark data including upload image URLs to appsOnAir server.
     static func apiAddRemark(apiPassData:NSDictionary=[:] , completion: @escaping(NSDictionary) -> ()) {
         
         // Set up the URL
