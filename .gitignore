@@ -17,6 +17,11 @@ xcuserdata/
 DerivedData
 *.hmap
 *.ipa
+*.xcuserstate
+
+# CocoaPods
+Podfile.lock
+Pods/
 
 # Bundler
 .bundle

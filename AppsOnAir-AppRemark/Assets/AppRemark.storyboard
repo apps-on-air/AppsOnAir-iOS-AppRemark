@@ -105,6 +105,10 @@
                                     <constraint firstItem="Ieg-Qi-8I3" firstAttribute="centerX" secondItem="geP-g2-Gyf" secondAttribute="centerX" id="zmR-5w-zcQ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ynk-0i-f01">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="59"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="egV-Tk-6nJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -113,6 +117,7 @@
                             <constraint firstItem="egV-Tk-6nJ" firstAttribute="trailing" secondItem="mLC-Lw-2gI" secondAttribute="trailing" constant="12" id="2ka-ZS-zxY"/>
                             <constraint firstItem="Xzs-Ql-uf2" firstAttribute="trailing" secondItem="PQr-8G-gka" secondAttribute="trailing" id="4YO-Rp-rVu"/>
                             <constraint firstItem="geP-g2-Gyf" firstAttribute="top" secondItem="egV-Tk-6nJ" secondAttribute="top" id="CEe-Y5-FqS"/>
+                            <constraint firstItem="Ynk-0i-f01" firstAttribute="leading" secondItem="PHD-Nt-o7f" secondAttribute="leading" id="Fhf-uH-nCL"/>
                             <constraint firstItem="mLC-Lw-2gI" firstAttribute="leading" secondItem="egV-Tk-6nJ" secondAttribute="leading" constant="12" id="GeK-gL-2Sz"/>
                             <constraint firstItem="egV-Tk-6nJ" firstAttribute="bottom" secondItem="W9f-Ht-bET" secondAttribute="bottom" constant="21" id="Jer-Bt-Ey5"/>
                             <constraint firstItem="W9f-Ht-bET" firstAttribute="leading" secondItem="egV-Tk-6nJ" secondAttribute="leading" constant="12" id="KCB-YN-eVr"/>
@@ -123,6 +128,8 @@
                             <constraint firstItem="lW8-bh-fur" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="egV-Tk-6nJ" secondAttribute="leading" constant="12" id="PBi-fO-aNc"/>
                             <constraint firstItem="vRe-H8-S7n" firstAttribute="leading" secondItem="egV-Tk-6nJ" secondAttribute="leading" id="UaI-a2-wab"/>
                             <constraint firstItem="aMh-CF-d4e" firstAttribute="top" secondItem="Xzs-Ql-uf2" secondAttribute="bottom" constant="8" id="X6N-BV-2Pt"/>
+                            <constraint firstItem="Ynk-0i-f01" firstAttribute="top" secondItem="PHD-Nt-o7f" secondAttribute="top" id="Z8s-2C-QHG"/>
+                            <constraint firstItem="geP-g2-Gyf" firstAttribute="top" secondItem="Ynk-0i-f01" secondAttribute="bottom" id="ZvW-6X-gEx"/>
                             <constraint firstItem="aMh-CF-d4e" firstAttribute="leading" secondItem="mLC-Lw-2gI" secondAttribute="leading" id="drY-qo-LcK"/>
                             <constraint firstItem="mLC-Lw-2gI" firstAttribute="top" secondItem="PQr-8G-gka" secondAttribute="bottom" constant="8" id="f6O-yA-5es"/>
                             <constraint firstItem="egV-Tk-6nJ" firstAttribute="trailing" secondItem="vRe-H8-S7n" secondAttribute="trailing" id="gJd-ta-ge0"/>
@@ -136,6 +143,7 @@
                             <constraint firstItem="egV-Tk-6nJ" firstAttribute="trailing" secondItem="PQr-8G-gka" secondAttribute="trailing" constant="12" id="qLj-Lf-pzP"/>
                             <constraint firstItem="egV-Tk-6nJ" firstAttribute="trailing" secondItem="W9f-Ht-bET" secondAttribute="trailing" constant="12" id="qNa-x7-dcR"/>
                             <constraint firstItem="PQr-8G-gka" firstAttribute="leading" secondItem="egV-Tk-6nJ" secondAttribute="leading" constant="12" id="qUI-4L-4tE"/>
+                            <constraint firstAttribute="trailing" secondItem="Ynk-0i-f01" secondAttribute="trailing" id="vNn-lQ-6iA"/>
                             <constraint firstItem="aMh-CF-d4e" firstAttribute="height" secondItem="PHD-Nt-o7f" secondAttribute="height" multiplier="0.09" id="wNI-qo-Mw7"/>
                             <constraint firstItem="4Yi-iU-yZQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aMh-CF-d4e" secondAttribute="leading" id="wdo-BQ-Rf6"/>
                             <constraint firstItem="4Yi-iU-yZQ" firstAttribute="trailing" secondItem="aMh-CF-d4e" secondAttribute="trailing" id="xJ3-cu-eMf"/>
@@ -155,6 +163,7 @@
                         <outlet property="lblTicketType" destination="PQr-8G-gka" id="moA-m2-wqG"/>
                         <outlet property="navTitle" destination="Ieg-Qi-8I3" id="7QV-yt-tx3"/>
                         <outlet property="navView" destination="geP-g2-Gyf" id="uTY-5f-jGr"/>
+                        <outlet property="statusView" destination="Ynk-0i-f01" id="rI2-hO-BOa"/>
                         <outlet property="txtDescription" destination="aMh-CF-d4e" id="fJL-Rq-RRw"/>
                     </connections>
                 </viewController>

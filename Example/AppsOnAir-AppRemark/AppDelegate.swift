@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appsOnAirRemarkServices.initialize(shakeGestureEnable: false,options: ["inputTextColor":"FF0000","descriptionHintText":"Enter feedback"])
+        appsOnAirRemarkServices.initialize(shakeGestureEnable: true,options: ["inputTextColor":"#FF0000","buttonText":"Submit"])
         return true
     }
 

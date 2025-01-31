@@ -70,25 +70,31 @@ public class AppRemarkService:NSObject {
         self.appId = appsOnAirCore.appId
 
         // Help to customized the theme
-        self.appBarBackgroundColor = options["appBarBackgroundColor"] as? String
-        self.appBarTitleText = options["appBarTitleText"] as? String  
-        self.appBarTitleColor = options["appBarTitleColor"] as? String
+        let customizeOptions = options.reduce(into: NSMutableDictionary()) { result, pair in
+            if let stringKey = pair.key as? String {
+                result[stringKey.lowercased()] = pair.value
+            }
+        }
         
-        self.pageBackgroundColor = options["pageBackgroundColor"] as? String
+        self.appBarBackgroundColor = customizeOptions["appbarbackgroundcolor"] as? String
+        self.appBarTitleText = customizeOptions["appbartitletext"] as? String
+        self.appBarTitleColor = customizeOptions["appbartitlecolor"] as? String
         
-        self.remarkTypeLabelText = options["remarkTypeLabelText"] as? String
-        self.labelColor = options["labelColor"] as? String
+        self.pageBackgroundColor = customizeOptions["pagebackgroundcolor"] as? String
         
-        self.hintColor = options["hintColor"] as? String
+        self.remarkTypeLabelText = customizeOptions["remarktypelabeltext"] as? String
+        self.labelColor = customizeOptions["labelcolor"] as? String
         
-        self.descriptionLabelText = options["descriptionLabelText"] as? String
-        self.descriptionMaxLength = options["descriptionMaxLength"] as? Int
-        self.descriptionHintText = options["descriptionHintText"] as? String
+        self.hintColor = customizeOptions["hintcolor"] as? String
         
-        self.inputTextColor = options["inputTextColor"] as? String 
-        self.buttonText = options["buttonText"] as? String
-        self.buttonTextColor = options["buttonTextColor"] as? String
-        self.buttonBackgroundColor = options["buttonBackgroundColor"] as? String 
+        self.descriptionLabelText = customizeOptions["descriptionlabeltext"] as? String
+        self.descriptionMaxLength = customizeOptions["descriptionmaxlength"] as? Int
+        self.descriptionHintText = customizeOptions["descriptionhinttext"] as? String
+        
+        self.inputTextColor = customizeOptions["inputtextcolor"] as? String
+        self.buttonText = customizeOptions["buttontext"] as? String
+        self.buttonTextColor = customizeOptions["buttontextcolor"] as? String
+        self.buttonBackgroundColor = customizeOptions["buttonbackgroundcolor"] as? String
 
         // Init the Shake motion feature
         self.shakeGestureEnable = shakeGestureEnable
@@ -102,7 +108,6 @@ public class AppRemarkService:NSObject {
         DispatchQueue.main.async {
             IQKeyboardManager.shared.enable = true
         }
-
     }
     
     
