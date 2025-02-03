@@ -8,6 +8,7 @@ class RemarkController: UIViewController {
     
     //MARK: - @IBOutlets
     @IBOutlet weak var navView: UIView!
+    @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var navTitle: UILabel!
     @IBOutlet weak var btnNavClose: UIButton!
     
@@ -83,6 +84,7 @@ class RemarkController: UIViewController {
         
             self.navView.addShadow()
             self.navView.backgroundColor = UIColor.init(hex: appBarBackgroundColor) ?? sColorPrimaryThemeLight
+            self.statusView.backgroundColor = UIColor.init(hex: appBarBackgroundColor) ?? sColorPrimaryThemeLight
             
             self.navTitle.textColor = UIColor.init(hex: appBarTitleColor) ?? sColorTextBlack
             self.navTitle.text = appBarTitleText ?? "Add Remark"
@@ -117,7 +119,7 @@ class RemarkController: UIViewController {
             self.lblDescription.textColor =  UIColor.init(hex: labelColor) ?? sColorTextLightGray
     
             self.descriptionCharLimit.text = "0/\(txtDescriptionCharLimit)"
-            self.descriptionCharLimit.textColor = sColorTextBlack
+            self.descriptionCharLimit.textColor =  UIColor.init(hex: labelColor) ?? sColorTextBlack
           
             self.txtDescription.addCornerRadius(raduis: raduis)
             self.txtDescription.delegate = self
@@ -209,17 +211,17 @@ class RemarkController: UIViewController {
         }
     }
     
-    @objc func getPodVersion() -> String {
-        let podVersion = Bundle(for: AppRemarkService.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        Logger.logInternal(podVersion)
-        return podVersion
-    }
-
     @objc func dismissController() {
         NotificationCenter.default.post(name: NSNotification.Name("visibilityChanges"), object: nil, userInfo: ["isPresented": false])
         self.dismiss(animated: true, completion: nil)
     }
     
+    //get current pod version
+    @objc private func getPodVersion() -> String {
+        let podVersion = Bundle(for: AppRemarkService.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        Logger.logInternal(podVersion)
+        return podVersion
+    }
     
     @objc func btnSubmit(_ sender: UIButton){
         showLoader()
@@ -250,6 +252,11 @@ class RemarkController: UIViewController {
                   ]
                 ]
                 
+                // convert image bytes into MB for BackEnd
+                let imageSizeInBytes = Double(self.selectedImage?[index].getImageSize()?.count ?? 0)
+                let imageSizeInMB = imageSizeInBytes / (1024.0 * 1024.0)
+                let imageSize = Double(round(100 * imageSizeInMB) / 100) // round of 2 decimal point
+                
                 //Api of getSignIn
                 RemarkApiService.apiGetSignInURL(apiGetSignInPassData: imageData) { signInData in
                     if (signInData.count != 0) {
@@ -257,7 +264,7 @@ class RemarkController: UIViewController {
                         let fileURL = (signInData["data"] as! NSDictionary)["fileUrl"] as! String
                         RemarkApiService.apiUploadImage(image: (self.selectedImage?[index]) ?? UIImage(), signUrl: signUinUploadUrl){ value in
                             if(value){
-                                feedBackScreenShotData.append(["key":fileURL,"fileType":fileType])
+                                feedBackScreenShotData.append(["key":fileURL,"fileType":fileType,"size":imageSize])
                                 dispatchGroup.leave()
                             }else{
                                 self.failureToast()
@@ -272,43 +279,28 @@ class RemarkController: UIViewController {
             }
             //Call after the all image are uploaded
             dispatchGroup.notify(queue: .main) {
-                    
+                var systemInfo:[String:Any] = [:]
                 //get Device Info
-                let deviceInfo = MyDevice().getInfo()
-                // Get current time zone
-                let timeZone = TimeZone.current.identifier
+                let deviceDetails = AppRemarkService.shared.appsOnAirCore.getDeviceInfo(additionalInfo: [
+                    "appRemarkVersion":self.getPodVersion()])
                 
-                Logger.logInternal(TimeZone.current.identifier)
-                let deviceInfoDict: NSDictionary = [
-                    "deviceModel": deviceInfo["deviceModel"] ?? "",
-                    "deviceUsedStorage": deviceInfo["deviceUsedStorage"] ?? "",
-                    "deviceTotalStorage": deviceInfo["deviceTotalStorage"] ?? "",
-                    "deviceMemory": deviceInfo["deviceMemory"] ?? "",
-                    "appMemoryUsage": deviceInfo["appMemoryUsage"] ?? "",
-                    "deviceOrientation": deviceInfo["deviceOrientation"] ?? "",
-                    "buildVersionNumber": deviceInfo["buildVersionNumber"] ?? "",
-                    "bundleIdentifier":deviceInfo["bundleIdentifier"] ?? "",
-                    "deviceOsVersion": deviceInfo["deviceOsVersion"] ?? "",
-                    "deviceRegionCode": deviceInfo["deviceRegionCode"] ?? "",
-                    "deviceBatteryLevel": deviceInfo["deviceBatteryLevel"] ?? "",
-                    "deviceScreenSize": deviceInfo["deviceScreenSize"] ?? "",
-                    "deviceRegionName": deviceInfo["deviceRegionName"] ?? "",
-                    "releaseVersionNumber": deviceInfo["releaseVersionNumber"] ?? "",
-                    "timezone": timeZone,
-                    "appsOnAirSDKVersion": self.getPodVersion(),
-                    "appName" : Bundle.main.appName ?? ""
-                ]
+                let deviceInfo:[String:Any] = deviceDetails["deviceInfo"] as? [String : Any] ?? [:]
+                let appInfo:[String:Any] = deviceDetails["appInfo"] as? [String : Any]  ?? [:]
+                
+                systemInfo.merge(appInfo){ (_, appDetails) in appDetails }
+                systemInfo.merge(deviceInfo) { (_, deviceDetails) in deviceDetails }
+
                 let remarkType:String = (self.dropDown.text ?? "") == self.ticketType[0] ? "SUGGESTION" : "BUG"
                 
-                
                 let userDescription = self.txtDescription.text.trimmingCharacters(in: .whitespacesAndNewlines) as String
+                
                 // Step 2: Create the data dictionary separately
                 let apiData:NSDictionary = [
                     "additionalMetadata": AppRemarkService.shared.additionalParams ?? [],
                     "attachments": feedBackScreenShotData,
-                    "description": ((userDescription == "") || userDescription == self.descriptionHintText) ? "":
+                    "description": ((userDescription == "") || userDescription == self.txtDescriptionHintText || userDescription == self.descriptionHintText) ? "":
                         userDescription,
-                    "deviceInfo": deviceInfoDict, // Use the deviceInfoDict here
+                    "deviceInfo": systemInfo, // Use the deviceInfoDict here
                     "type": remarkType
                 ]
                 
@@ -423,8 +415,10 @@ extension RemarkController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.count
-        descriptionCharLimit.text = "\(numberOfChars)/\(txtDescriptionCharLimit)"
-        return numberOfChars < txtDescriptionCharLimit;
+        if(numberOfChars <= txtDescriptionCharLimit){
+            descriptionCharLimit.text = "\(numberOfChars)/\(txtDescriptionCharLimit)"
+        }
+        return numberOfChars <= txtDescriptionCharLimit;
     }
 }
 

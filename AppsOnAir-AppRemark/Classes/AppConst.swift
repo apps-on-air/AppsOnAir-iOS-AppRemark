@@ -23,8 +23,6 @@ let responseJson = "Response JSON:"
 
 let failedToLoad = "Failed to load:"
 
-let errorStr = "Error:"
-
 let errorImageData = "Error converting image to data"
 
 let errorURL = "No URL"
@@ -39,10 +37,6 @@ let errorNetwork = "Please check internet connection" // !!!: Developer Guidelin
 
 let errorSomethingWentWrong = "Something Went Wrong"
 
-let errorApiKey = "AppsOnAir APIKey is Not initialized"
-
-let errorGetStorage = "Failed to retrieve storage information."
-
 let getSignInURL = "getSignIn"
 
 let imageUploadSuccess = "Image uploaded successfully!!"
@@ -52,10 +46,6 @@ let url = "URL"
 let apiData = "Api Passing Data"
 
 let echoTime = "Epoch time in milliseconds:"
-
-let deviceModelIdentifier = "Model Identifier"
-
-let deviceInformation = "Device Info:"
 
 let viewControllerViewDidLoad = "View controller viewDidLoad:"
 
