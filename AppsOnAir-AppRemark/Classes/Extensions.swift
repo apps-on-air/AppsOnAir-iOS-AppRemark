@@ -367,7 +367,15 @@ extension UIDevice {
 
 // MARK: - EXTENSION UIApplication
 extension UIApplication {
-    class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    
+    var activeWindow: UIWindow? {
+            return connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
+        }
+    
+    class func topViewController(base: UIViewController? = UIApplication.shared.activeWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
         }
