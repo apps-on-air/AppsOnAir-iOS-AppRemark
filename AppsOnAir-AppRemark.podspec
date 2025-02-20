@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '0.3.0'
+  s.version          = '1.0.0'
   s.summary          = 'AppsOnAir AppRemark'
 
   s.description      = 'Appsonair services for user feedback submission.'
@@ -19,9 +19,9 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git', :tag => s.version.to_s }
 
   s.swift_version  = '5.0'
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '14.0'
 
-  s.dependency 'IQKeyboardManagerSwift', '~> 6.5.16'
+  s.dependency 'IQKeyboardToolbarManager', '~> 1.1.3'
   s.dependency 'iOSDropDown', '~> 0.4.0'
   s.dependency 'Toast-Swift', '~> 5.1.1'
   s.dependency 'ZLImageEditor','~> 2.0.3'

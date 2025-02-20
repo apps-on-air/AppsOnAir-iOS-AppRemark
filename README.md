@@ -19,7 +19,7 @@ pod 'AppsOnAir-AppRemark'
 
 ## Requirements
 
-Minimum deployment target: 12.0
+Minimum deployment target: 14.0
 
 
 ## USAGE 
