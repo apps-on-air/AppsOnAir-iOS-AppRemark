@@ -1,7 +1,7 @@
 import Foundation
+import IQKeyboardToolbarManager
 import UIKit
 import AVFoundation
-import IQKeyboardManagerSwift
 import AppsOnAir_Core
 
 public class AppRemarkService:NSObject {
@@ -106,7 +106,7 @@ public class AppRemarkService:NSObject {
         
         // To enable for managing distance between keyboard and textField.
         DispatchQueue.main.async {
-            IQKeyboardManager.shared.enable = true
+            IQKeyboardToolbarManager.shared.isEnabled = true
         }
     }
     
