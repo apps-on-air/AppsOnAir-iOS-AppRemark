@@ -1,3 +1,11 @@
+## 1.0.0
+
+**Breaking Changes:**
+
+* The app remark feature now works on iOS 14.0 and later, enhancing performance and stability.
+    * Set the minimum deployment target to iOS 14.0
+    * Replaced the `IQKeyboardManagerSwift` pod with `IQKeyboardToolbarManager`
+
 ## 0.3.0
 
 * Remove device info from module and used from core library and optimized used of options param.

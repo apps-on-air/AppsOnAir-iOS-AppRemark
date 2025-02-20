@@ -13,8 +13,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		7B342F24C3899357147C4E30 /* Pods_AppsOnAir_AppRemark_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EF3AEDC8D92F8B942FA640B /* Pods_AppsOnAir_AppRemark_Tests.framework */; };
-		B5B1CAA2C793836E342F7616 /* Pods_AppsOnAir_AppRemark_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8080EADFA64E3FFD325502A9 /* Pods_AppsOnAir_AppRemark_Example.framework */; };
+		87FDCDC676B915FC15131275 /* Pods_AppsOnAir_AppRemark_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C236F9C625CD1F0993F5646 /* Pods_AppsOnAir_AppRemark_Example.framework */; };
+		8FD5B19791A8F6D3F3F57ACB /* Pods_AppsOnAir_AppRemark_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19747C22F2F7CA19827A879 /* Pods_AppsOnAir_AppRemark_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,11 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EF3AEDC8D92F8B942FA640B /* Pods_AppsOnAir_AppRemark_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppsOnAir_AppRemark_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		10AD5A71ED8FE3AF5C4415D6 /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Tests.release.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Tests/Pods-AppsOnAir-AppRemark_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1A4BDAF7A282165D348A9FF9 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Example.debug.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		4161E41579213D281511328E /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Tests/Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4771F07E334D6FDC1B721C38 /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Example.release.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example.release.xcconfig"; sourceTree = "<group>"; };
+		3A88FE5BFC8F7D78A6BA0039 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Example.debug.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* AppsOnAir-AppRemark_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppsOnAir-AppRemark_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,10 +39,14 @@
 		607FACE51AFB9204008FA782 /* AppsOnAir-AppRemark_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppsOnAir-AppRemark_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		7C236F9C625CD1F0993F5646 /* Pods_AppsOnAir_AppRemark_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppsOnAir_AppRemark_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF8AB69492046E5F3AE18FB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		8080EADFA64E3FFD325502A9 /* Pods_AppsOnAir_AppRemark_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppsOnAir_AppRemark_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C621A8BD0AFC573ABD674 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		88B248D8E40464874D0E0D3F /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Example.release.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example.release.xcconfig"; sourceTree = "<group>"; };
 		AFA3692872E195711B29F365 /* AppsOnAir-AppRemark.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "AppsOnAir-AppRemark.podspec"; path = "../AppsOnAir-AppRemark.podspec"; sourceTree = "<group>"; };
+		F19747C22F2F7CA19827A879 /* Pods_AppsOnAir_AppRemark_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppsOnAir_AppRemark_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1B3C2B69CC040264E5E6719 /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Tests/Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF00CD972CB806F9074509EE /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppsOnAir-AppRemark_Tests.release.xcconfig"; path = "Target Support Files/Pods-AppsOnAir-AppRemark_Tests/Pods-AppsOnAir-AppRemark_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B1CAA2C793836E342F7616 /* Pods_AppsOnAir_AppRemark_Example.framework in Frameworks */,
+				87FDCDC676B915FC15131275 /* Pods_AppsOnAir_AppRemark_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,18 +62,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B342F24C3899357147C4E30 /* Pods_AppsOnAir_AppRemark_Tests.framework in Frameworks */,
+				8FD5B19791A8F6D3F3F57ACB /* Pods_AppsOnAir_AppRemark_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		160BAE7EEACF92D89E3AD611 /* Frameworks */ = {
+		02CE4ED7535EACAD175DB496 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8080EADFA64E3FFD325502A9 /* Pods_AppsOnAir_AppRemark_Example.framework */,
-				0EF3AEDC8D92F8B942FA640B /* Pods_AppsOnAir_AppRemark_Tests.framework */,
+				7C236F9C625CD1F0993F5646 /* Pods_AppsOnAir_AppRemark_Example.framework */,
+				F19747C22F2F7CA19827A879 /* Pods_AppsOnAir_AppRemark_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -86,7 +86,7 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				DA6FA1B33F24D2AC1E4B973D /* Pods */,
-				160BAE7EEACF92D89E3AD611 /* Frameworks */,
+				02CE4ED7535EACAD175DB496 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,10 +151,10 @@
 		DA6FA1B33F24D2AC1E4B973D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1A4BDAF7A282165D348A9FF9 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */,
-				4771F07E334D6FDC1B721C38 /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */,
-				4161E41579213D281511328E /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */,
-				10AD5A71ED8FE3AF5C4415D6 /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */,
+				3A88FE5BFC8F7D78A6BA0039 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */,
+				88B248D8E40464874D0E0D3F /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */,
+				F1B3C2B69CC040264E5E6719 /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */,
+				FF00CD972CB806F9074509EE /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -166,11 +166,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "AppsOnAir-AppRemark_Example" */;
 			buildPhases = (
-				8FE9C80026D2A5282E7CA6C7 /* [CP] Check Pods Manifest.lock */,
+				D31EE9FFEEF035BC5321441C /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				44BE8D984D81E0E3E6F14019 /* [CP] Embed Pods Frameworks */,
+				1E344E79DAECE9D766617D9D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -185,7 +185,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "AppsOnAir-AppRemark_Tests" */;
 			buildPhases = (
-				DF6979D162B06E2D6D1AE6FF /* [CP] Check Pods Manifest.lock */,
+				D7931DA11328D887426D0A69 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -263,7 +263,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		44BE8D984D81E0E3E6F14019 /* [CP] Embed Pods Frameworks */ = {
+		1E344E79DAECE9D766617D9D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -272,7 +272,10 @@
 				"${PODS_ROOT}/Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppsOnAir-AppRemark/AppsOnAir_AppRemark.framework",
 				"${BUILT_PRODUCTS_DIR}/AppsOnAir-Core/AppsOnAir_Core.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardCore/IQKeyboardCore.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardToolbar/IQKeyboardToolbar.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardToolbarManager/IQKeyboardToolbarManager.framework",
+				"${BUILT_PRODUCTS_DIR}/IQTextInputViewNotification/IQTextInputViewNotification.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLImageEditor/ZLImageEditor.framework",
@@ -282,7 +285,10 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppsOnAir_AppRemark.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppsOnAir_Core.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardToolbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardToolbarManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQTextInputViewNotification.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLImageEditor.framework",
@@ -293,7 +299,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppsOnAir-AppRemark_Example/Pods-AppsOnAir-AppRemark_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8FE9C80026D2A5282E7CA6C7 /* [CP] Check Pods Manifest.lock */ = {
+		D31EE9FFEEF035BC5321441C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -315,7 +321,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF6979D162B06E2D6D1AE6FF /* [CP] Check Pods Manifest.lock */ = {
+		D7931DA11328D887426D0A69 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -432,7 +438,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -478,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -488,13 +494,13 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A4BDAF7A282165D348A9FF9 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */;
+			baseConfigurationReference = 3A88FE5BFC8F7D78A6BA0039 /* Pods-AppsOnAir-AppRemark_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "AppsOnAir-AppRemark/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -507,13 +513,13 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4771F07E334D6FDC1B721C38 /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */;
+			baseConfigurationReference = 88B248D8E40464874D0E0D3F /* Pods-AppsOnAir-AppRemark_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "AppsOnAir-AppRemark/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -526,7 +532,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4161E41579213D281511328E /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */;
+			baseConfigurationReference = F1B3C2B69CC040264E5E6719 /* Pods-AppsOnAir-AppRemark_Tests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -539,7 +545,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -552,7 +558,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 10AD5A71ED8FE3AF5C4415D6 /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */;
+			baseConfigurationReference = FF00CD972CB806F9074509EE /* Pods-AppsOnAir-AppRemark_Tests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -561,7 +567,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
