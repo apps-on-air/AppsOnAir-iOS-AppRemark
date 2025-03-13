@@ -5,7 +5,7 @@ import Toast_Swift
 import AVKit
 import Photos
 import AppsOnAir_Core
-import ZLImageEditor
+import LWPhotoEditor
 
 // MARK: - EXTENSION UIViewController
 typealias ToastCompletionHandler = (_ success:Bool) -> Void
@@ -142,7 +142,6 @@ extension UIViewController {
 
         ZLImageEditorConfiguration.default()
             .editImageTools([.draw, .clip, .textSticker])
-            .adjustTools([.brightness, .contrast, .saturation])
         
         ZLEditImageViewController.showEditImageVC(parentVC: self, image: screenshot ?? UIImage()) { image, Editmodel in
             NotificationCenter.default.post(name: NSNotification.Name("visibilityChanges"), object: nil, userInfo: ["isPresented": true])
@@ -171,15 +170,23 @@ extension UIViewController {
     //IMAGE SELECTION  PRESENT CAMERA/PHOTO_LIBRARY
     func selectImagePopup(_ title: String? = "Choose your Image source" , isAllFile: Bool = false){
         let alert = UIAlertController(title: nil, message: title , preferredStyle: UIAlertController.Style.actionSheet)
-    
-        alert.addAction(UIAlertAction(title: "Gallery", style: UIAlertAction.Style.default) { (result : UIAlertAction) -> Void in
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if let popoverController = alert.popoverPresentationController {
+                popoverController.sourceView = self.view // Change this to your actual view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.height, width: 0, height: 0)
+                popoverController.permittedArrowDirections = [] // No arrow direction
+            }
+        }
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default) { (result : UIAlertAction) -> Void in
             self.openGallery(isAllFile: isAllFile)
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (result : UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (result : UIAlertAction) -> Void in
             alert.dismiss(animated: true, completion: nil)
         })
-
+        
         self.present(alert, animated: true, completion: nil)
     }
     

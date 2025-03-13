@@ -23,7 +23,13 @@ class ViewController: UIViewController {
                 button.layer.cornerRadius = 10
                 
                 // Set button frame (size and position)
-                button.frame = CGRect(x: 100, y: 200, width: 150, height: 50)
+                let buttonWidth: CGFloat = 150
+                let buttonHeight: CGFloat = 50
+                let xPos = (self.view.bounds.width - buttonWidth) / 2
+                let yPos = (self.view.bounds.height - buttonHeight) / 2
+                
+                // Set button frame (size and position)
+                button.frame = CGRect(x: xPos, y: yPos, width: buttonWidth, height: buttonHeight)
                 
                 // Add target for onPressed (TouchUpInside)
                 button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
