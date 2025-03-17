@@ -1,3 +1,9 @@
+## 1.0.1
+
+* Replaced the `ZLImageEditor` pod with `LWPhotoEditor`
+* Upgrade dependency
+* Minor improvements
+
 ## 1.0.0
 
 **Breaking Changes:**
