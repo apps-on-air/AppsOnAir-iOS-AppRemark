@@ -140,7 +140,7 @@ class ViewController: UIViewController {
           // Define the action when button is pressed
            @objc func buttonPressed() {
                // Help to open the manually open feedback screen 
-               appsOnAirRemarkServices.addRemark(extraPayload: ["XX":"XX"])
+               appsOnAirRemarkServices.addRemark()
            }
 
 
@@ -185,12 +185,62 @@ Objective-c
 }
 - (void)openNextScreen {
      // Help to open the manually open feedback screen 
-    [self.appRemarkService addRemarkWithExtraPayload:@{@"XX":@"XX"}];
+    [self.appRemarkService addRemark];
 }
 
 
 ```
 
+### 3. Follow this step to send your customize payload, which you want to save in order to monitor your app.
+
+Users have to pass "extraPayload" inform of Map, which contains key-value pair of user's additional meta-data.
+
+### App-Remark Implement Code
+
+Swift / SwiftUI
+```swift
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    let appOnAirRemarkService = AppRemarkService.shared
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    
+        appOnAirRemarkService.setAdditionalMetaData(extraPayload: ["UserID":"UserID"])
+        return true
+    }
+}
+```
+
+Objective-c
+```swift
+#import "AppDelegate.h"
+#import "AppsOnAir_AppRemark-Swift.h"
+
+
+
+@interface AppDelegate ()
+@property (nonatomic, strong) AppRemarkService *appRemarkService;
+@end
+
+@implementation AppDelegate
+
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+       
+    // App Remark Class instance create
+    self.appRemarkService = [AppRemarkService shared];
+    
+    [self.appRemarkService setAdditionalMetaDataWithExtraPayload:@{@"UserID":@"UserID"}];
+    
+    // Override point for customization after application launch.
+    return YES;
+}
+
+```
+
+Note: Call the setAdditionalMetaData method whenever you want to add or update details
 
 ## Change properties (optional)
 Here are the available options (optional) and these options will help you customize your app to look better and feel more polished:

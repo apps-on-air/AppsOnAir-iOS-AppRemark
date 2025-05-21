@@ -41,6 +41,8 @@ let getSignInURL = "getSignIn"
 
 let imageUploadSuccess = "Image uploaded successfully!!"
 
+let errorGalleryPermission = "Gallery permission required!"
+
 let url = "URL"
 
 let apiData = "Api Passing Data"

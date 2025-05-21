@@ -68,7 +68,14 @@ public class AppRemarkService:NSObject {
         // Help to initialize the core services of AppsOnAir
         appsOnAirCore.initialize()
         self.appId = appsOnAirCore.appId
-
+        
+        //Help to check gallery permission
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.005, execute: {
+            if let topVC = UIApplication.topViewController() {
+                topVC.checkGalleryPermission()
+            }
+        })
+        
         // Help to customized the theme
         let customizeOptions = options.reduce(into: NSMutableDictionary()) { result, pair in
             if let stringKey = pair.key as? String {
@@ -111,15 +118,15 @@ public class AppRemarkService:NSObject {
     }
     
     
-    /// help to add additional params  of app and open the manually remark screen
-    @objc public func addRemark(extraPayload: NSDictionary = [:]) {
-        
-        self.additionalParams = extraPayload as? [String : String] ?? nil
-        
-        //Help to open the remark screen
+    /// help to  open the manually remark screen
+    @objc public func addRemark() {
         self.openRemarkScreen()
     }
     
+    /// help to add additional params  of app
+    @objc public func setAdditionalMetaData(extraPayload: NSDictionary) {
+        self.additionalParams = extraPayload as? [String : String] ?? nil
+    }
     
     private func openRemarkScreen() {
         if let topViewController = UIApplication.topViewController(){
