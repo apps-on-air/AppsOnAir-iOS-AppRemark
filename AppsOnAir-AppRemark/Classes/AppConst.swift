@@ -13,6 +13,16 @@ let errorPhotosPermission = "Need to add NSPhotoLibraryUsageDescription in your 
 
 let appsOnAirRemark = "AppsOnAir Remark"
 
+let remark = "Remark"
+
+let ok = "Ok"
+
+let chooseImageSource = "Choose your Image source"
+
+let gallery = "Gallery"
+
+let cancel = "Cancel"
+
 //MARK: - Internal Logs Messages
 
 let statusCode = "Status code:"
@@ -52,4 +62,9 @@ let echoTime = "Epoch time in milliseconds:"
 let viewControllerViewDidLoad = "View controller viewDidLoad:"
 
 let shakeGestureDetected = "Shake Gesture Detected"
+
+enum RemarkType: String {
+    case suggestion = "SUGGESTION"
+    case bug = "BUG"
+}
 

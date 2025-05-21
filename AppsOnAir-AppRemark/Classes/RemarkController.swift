@@ -260,21 +260,22 @@ class RemarkController: UIViewController {
                 
                 //Api of getSignIn
                 RemarkApiService.apiGetSignInURL(apiGetSignInPassData: imageData) { signInData in
-                    if (signInData.count != 0) {
-                        let signUinUploadUrl = (signInData["data"] as! NSDictionary)["signedURL"] as! String
-                        let fileURL = (signInData["data"] as! NSDictionary)["fileUrl"] as! String
-                        RemarkApiService.apiUploadImage(image: (self.selectedImage?[index]) ?? UIImage(), signUrl: signUinUploadUrl){ value in
-                            if(value){
-                                feedBackScreenShotData.append(["key":fileURL,"fileType":fileType,"size":imageSize])
-                                dispatchGroup.leave()
-                            }else{
-                                self.failureToast()
-                                return
-                            }
-                        }
-                    }else{
+                    guard signInData.count != 0,
+                          let signInData = signInData["data"] as? NSDictionary,
+                          let signInUploadUrl = signInData["signedURL"] as? String,
+                          let signInURL = signInData["fileUrl"] as? String else {
                         self.failureToast()
                         return
+                    }
+
+                    RemarkApiService.apiUploadImage(image: self.selectedImage?[index] ?? UIImage(), signUrl: signInUploadUrl) { value in
+                        if value {
+                            feedBackScreenShotData.append(["key": signInURL, "fileType": fileType, "size": imageSize])
+                            dispatchGroup.leave()
+                        } else {
+                            self.failureToast()
+                            return
+                        }
                     }
                 }
             }
@@ -309,7 +310,7 @@ class RemarkController: UIViewController {
                 // Wait for the async call to finish before proceeding
                 dispatchGroup.notify(queue: .main) {
                     Logger.logInternal("\(systemInfo)")
-                    let remarkType = (self.dropDown.text == self.ticketType.first) ? "SUGGESTION" : "BUG"
+                    let remarkType: RemarkType = (self.dropDown.text == self.ticketType.first) ? .suggestion : .bug
                     let userDescription = self.txtDescription.text.trimmingCharacters(in: .whitespacesAndNewlines)
                     let description = ([self.txtDescriptionHintText, self.descriptionHintText].contains(userDescription) || userDescription.isEmpty) ? "" : userDescription
 
@@ -318,7 +319,7 @@ class RemarkController: UIViewController {
                            "attachments": feedBackScreenShotData,
                            "description": description,
                            "deviceInfo": systemInfo,
-                           "type": remarkType
+                           "type": remarkType.rawValue
                        ]
 
                     let apiKey: NSDictionary = ["appId": AppRemarkService.shared.appsOnAirCore.appId]
@@ -331,25 +332,25 @@ class RemarkController: UIViewController {
 
                     // Make the API call to create a remark
                     RemarkApiService.apiAddRemark(apiPassData: apiPassingData) { feedbackData in
-                        if feedbackData.count != 0 && feedbackData["error"] == nil {
-                            let apiStatus = feedbackData["status"] as? String ?? ""
-                            if apiStatus == "SUCCESS" {
-                                self.showToast(message: feedbackData["message"] as! String) { success in
-                                    if success {
-                                        DispatchQueue.global().async {
-                                            sleep(1) // Delay to display toast message
-                                            DispatchQueue.main.async {
-                                                self.dismissController()
-                                                self.hideLoader()
-                                            }
-                                        }
+                        guard feedbackData.count != 0,
+                              feedbackData["error"] == nil,
+                              let apiStatus = feedbackData["status"] as? String,
+                              apiStatus == "SUCCESS",
+                              let message = feedbackData["message"] as? String else {
+                            self.failureToast()
+                            return
+                        }
+                        
+                        self.showToast(message: message) { success in
+                            if success {
+                                DispatchQueue.global().async {
+                                    sleep(1) // Delay to display toast message
+                                    DispatchQueue.main.async {
+                                        self.dismissController()
+                                        self.hideLoader()
                                     }
                                 }
-                            } else {
-                                self.failureToast()
                             }
-                        } else {
-                            self.failureToast()
                         }
                     }
                 }

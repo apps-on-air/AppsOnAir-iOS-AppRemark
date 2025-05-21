@@ -120,7 +120,7 @@ struct RemarkApiService {
     static func apiAddRemark(apiPassData:NSDictionary=[:] , completion: @escaping(NSDictionary) -> ()) {
         
         // Set up the URL
-        guard let createRemarkURL = URL(string: EnvironmentConfig.serverURL) else {
+        guard let createRemarkURL = URL(string: EnvironmentConfig.addFeedback) else {
             Logger.logInternal(errorURL)
             return
         }

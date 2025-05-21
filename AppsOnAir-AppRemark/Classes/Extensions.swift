@@ -170,7 +170,7 @@ extension UIViewController {
     }
     
     //IMAGE SELECTION  PRESENT CAMERA/PHOTO_LIBRARY
-    func selectImagePopup(_ title: String? = "Choose your Image source"){
+    func selectImagePopup(_ title: String? = chooseImageSource){
         let alert = UIAlertController(title: nil, message: title , preferredStyle: UIAlertController.Style.actionSheet)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -181,11 +181,11 @@ extension UIViewController {
             }
         }
         
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default) { (result : UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: gallery, style: .default) { (result : UIAlertAction) -> Void in
             self.checkGalleryPermission(isAskPermission: true)
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (result : UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: cancel, style: .destructive) { (result : UIAlertAction) -> Void in
             alert.dismiss(animated: true, completion: nil)
         })
         
@@ -199,9 +199,9 @@ extension UIViewController {
                 PHPhotoLibrary.requestAuthorization { status in
                     if status == .denied {
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Remark" , message: errorGalleryPermission, preferredStyle: UIAlertController.Style.alert);
+                            let alert = UIAlertController(title: remark , message: errorGalleryPermission, preferredStyle: UIAlertController.Style.alert);
                             
-                            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                            alert.addAction(UIAlertAction(title: ok, style: .default))
                             self.present(alert, animated: true, completion: nil)
                         }
                     } else {
@@ -210,9 +210,6 @@ extension UIViewController {
                                 let imagePicker = UIImagePickerController()
                                 imagePicker.delegate = (self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate)
                                 imagePicker.sourceType = .photoLibrary
-                                if isAskPermission {
-                                    imagePicker.mediaTypes = ["public.image", "public.movie"]
-                                }
                                 
                                 imagePicker.allowsEditing = false
                                 imagePicker.modalPresentationStyle = .fullScreen
