@@ -134,8 +134,10 @@ extension UIViewController {
         
         
         NotificationCenter.default.post(name: NSNotification.Name("visibilityChanges"), object: nil, userInfo: ["isPresented": true])
-        if let captureImage = UIApplication.shared.windows.first?.takeScreenshot() {
-            // Do something with the screenshot, like saving it to the photo library
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first(where: { $0.isKeyWindow }),
+           let captureImage = window.takeScreenshot() {
+            
             isFeedbackInProgress = true
             screenshot = captureImage
         }
@@ -158,17 +160,17 @@ extension UIViewController {
         }
     }
     
-    func showToast(message : String, duration: Double = 2.0,completion:@escaping ToastCompletionHandler){
+    func showToast(message : String, duration: Double = 2.0,completion: ToastCompletionHandler? = nil){
         DispatchQueue.main.async {
             self.view.makeToast(message,duration: duration)
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-                completion(true)
+                completion?(true)
             })
         }
     }
     
     //IMAGE SELECTION  PRESENT CAMERA/PHOTO_LIBRARY
-    func selectImagePopup(_ title: String? = "Choose your Image source" , isAllFile: Bool = false){
+    func selectImagePopup(_ title: String? = chooseImageSource){
         let alert = UIAlertController(title: nil, message: title , preferredStyle: UIAlertController.Style.actionSheet)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -179,11 +181,11 @@ extension UIViewController {
             }
         }
         
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default) { (result : UIAlertAction) -> Void in
-            self.openGallery(isAllFile: isAllFile)
+        alert.addAction(UIAlertAction(title: gallery, style: .default) { (result : UIAlertAction) -> Void in
+            self.checkGalleryPermission(isAskPermission: true)
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (result : UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: cancel, style: .destructive) { (result : UIAlertAction) -> Void in
             alert.dismiss(animated: true, completion: nil)
         })
         
@@ -191,35 +193,45 @@ extension UIViewController {
     }
     
     
-    func openGallery(isAllFile: Bool = false){
-        if ((Bundle.main.photoPermission!)) {
-            PHPhotoLibrary.requestAuthorization { status in
-                if status == .denied {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Remark" , message: "Gallery permission required", preferredStyle: UIAlertController.Style.alert);
-                        
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                } else {
-                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+    func checkGalleryPermission(isAskPermission: Bool = false){
+        if(isAskPermission){
+            if ((Bundle.main.photoPermission ?? false)) {
+                PHPhotoLibrary.requestAuthorization { status in
+                    if status == .denied {
                         DispatchQueue.main.async {
-                            let imagePicker = UIImagePickerController()
-                            imagePicker.delegate = (self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate)
-                            imagePicker.sourceType = .photoLibrary
-                            if isAllFile {
-                                imagePicker.mediaTypes = ["public.image", "public.movie"]
-                            }
+                            let alert = UIAlertController(title: remark , message: errorGalleryPermission, preferredStyle: UIAlertController.Style.alert);
                             
-                            imagePicker.allowsEditing = false
-                            imagePicker.modalPresentationStyle = .fullScreen
-                            self.present(imagePicker, animated: true, completion: nil)
+                            alert.addAction(UIAlertAction(title: ok, style: .default))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                            DispatchQueue.main.async {
+                                let imagePicker = UIImagePickerController()
+                                imagePicker.delegate = (self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate)
+                                imagePicker.sourceType = .photoLibrary
+                                
+                                imagePicker.allowsEditing = false
+                                imagePicker.modalPresentationStyle = .fullScreen
+                                self.present(imagePicker, animated: true, completion: nil)
+                            }
                         }
                     }
                 }
             }
-        }else{
-            Logger.logInfo(errorPhotosPermission, prefix:appsOnAirRemark)
+        }
+        
+        if !(Bundle.main.photoPermission ?? false) {
+#if DEBUG
+            // In DEBUG mode - show toast
+            if let topVC = UIApplication.topViewController() {
+                topVC.showToast(message:errorPhotosPermission)
+            }
+            Logger.logInfo(errorPhotosPermission,prefix: appsOnAirRemark)
+#else
+            // In RELEASE mode
+            Logger.logInfo(errorPhotosPermission,prefix: appsOnAirRemark)
+#endif
         }
     }
     
@@ -281,10 +293,12 @@ extension UIView {
         
         // Begin image context
         UIGraphicsBeginImageContextWithOptions(screenBounds.size, false, UIScreen.main.scale)
-        
-        // Render the window's layer into the current context
-        UIApplication.shared.windows.forEach { window in
-            window.drawHierarchy(in: screenBounds, afterScreenUpdates: true)
+
+        // Use UIWindowScene to access windows (iOS 15+)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            for window in windowScene.windows {
+                window.drawHierarchy(in: screenBounds, afterScreenUpdates: true)
+            }
         }
         
         // Get the captured image

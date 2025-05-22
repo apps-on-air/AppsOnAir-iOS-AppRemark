@@ -1,3 +1,12 @@
+## 1.0.2
+
+**Breaking Changes:**
+
+* Upgrade dependency
+* Added additional device information (theme, permissions, locale, etc.).
+
+* Remove `extraPayload` params in `addRemark()` methods and create separate `setAdditionalMetaData()` method for adding/updating the additional details.
+
 ## 1.0.1
 
 * Replaced the `ZLImageEditor` pod with `LWPhotoEditor`

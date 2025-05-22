@@ -260,81 +260,98 @@ class RemarkController: UIViewController {
                 
                 //Api of getSignIn
                 RemarkApiService.apiGetSignInURL(apiGetSignInPassData: imageData) { signInData in
-                    if (signInData.count != 0) {
-                        let signUinUploadUrl = (signInData["data"] as! NSDictionary)["signedURL"] as! String
-                        let fileURL = (signInData["data"] as! NSDictionary)["fileUrl"] as! String
-                        RemarkApiService.apiUploadImage(image: (self.selectedImage?[index]) ?? UIImage(), signUrl: signUinUploadUrl){ value in
-                            if(value){
-                                feedBackScreenShotData.append(["key":fileURL,"fileType":fileType,"size":imageSize])
-                                dispatchGroup.leave()
-                            }else{
-                                self.failureToast()
-                                return
-                            }
-                        }
-                    }else{
+                    guard signInData.count != 0,
+                          let signInData = signInData["data"] as? NSDictionary,
+                          let signInUploadUrl = signInData["signedURL"] as? String,
+                          let signInURL = signInData["fileUrl"] as? String else {
                         self.failureToast()
                         return
+                    }
+
+                    RemarkApiService.apiUploadImage(image: self.selectedImage?[index] ?? UIImage(), signUrl: signInUploadUrl) { value in
+                        if value {
+                            feedBackScreenShotData.append(["key": signInURL, "fileType": fileType, "size": imageSize])
+                            dispatchGroup.leave()
+                        } else {
+                            self.failureToast()
+                            return
+                        }
                     }
                 }
             }
             //Call after the all image are uploaded
             dispatchGroup.notify(queue: .main) {
-                var systemInfo:[String:Any] = [:]
-                //get Device Info
-                let deviceDetails = AppRemarkService.shared.appsOnAirCore.getDeviceInfo(additionalInfo: [
-                    "appRemarkVersion":self.getPodVersion()])
+                var systemInfo: [String: Any] = [:]
                 
-                let deviceInfo:[String:Any] = deviceDetails["deviceInfo"] as? [String : Any] ?? [:]
-                let appInfo:[String:Any] = deviceDetails["appInfo"] as? [String : Any]  ?? [:]
+                // Step 1: Enter dispatchGroup to handle async call
+                dispatchGroup.enter()
                 
-                systemInfo.merge(appInfo){ (_, appDetails) in appDetails }
-                systemInfo.merge(deviceInfo) { (_, deviceDetails) in deviceDetails }
+                // Step 2: Get Device Info asynchronously
+                AppRemarkService.shared.appsOnAirCore.getDeviceInfo(additionalInfo: ["appRemarkVersion": self.getPodVersion()]) { deviceInfo in
+                    var deviceDetails = (deviceInfo["deviceInfo"] as? [String: Any]) ?? [:]
+                    let appPermission:[String:String] = AdditionalDeviceInfo.permissionsInfo() as [String : String]
+                    deviceDetails.merge([
+                        "app_permissions": appPermission.isEmpty ? NSNull() : appPermission,
+                        "locale": AdditionalDeviceInfo.fetchLocaleDetails(),
+                        "fontScale": AdditionalDeviceInfo.fetchFontScale(),
+                        "installVendor": AdditionalDeviceInfo.fetchInstallVendor(),
+                        "biometricInfo": AdditionalDeviceInfo.fetchBiometryInfo(),
+                        "externalReferenceId": AdditionalDeviceInfo.fetchDeviceIdentifier(),
+                        "themeMode":AdditionalDeviceInfo.fetchThemeMode()
+                    ]) { _, new in new }
+                    
+                    let appInfo = (deviceInfo["appInfo"] as? [String: Any]) ?? [:]
+                    
+                    systemInfo.merge(deviceDetails) { _, new in new }
+                    systemInfo.merge(appInfo) { _, new in new }
+                    dispatchGroup.leave() // Leave the group after device info is fetched
+                }
 
-                let remarkType:String = (self.dropDown.text ?? "") == self.ticketType[0] ? "SUGGESTION" : "BUG"
-                
-                let userDescription = self.txtDescription.text.trimmingCharacters(in: .whitespacesAndNewlines) as String
-                
-                // Step 2: Create the data dictionary separately
-                let apiData:NSDictionary = [
-                    "additionalMetadata": AppRemarkService.shared.additionalParams ?? [],
-                    "attachments": feedBackScreenShotData,
-                    "description": ((userDescription == "") || userDescription == self.txtDescriptionHintText || userDescription == self.descriptionHintText) ? "":
-                        userDescription,
-                    "deviceInfo": systemInfo, // Use the deviceInfoDict here
-                    "type": remarkType
-                ]
-                
-                //  Create the final request dictionary
-                let apiKey:NSDictionary = ["appId": AppRemarkService.shared.appsOnAirCore.appId]
-                let apiPassingData:NSDictionary = [
-                    "where": apiKey,
-                    "data": apiData
-                ]
-                
-                Logger.logInternal("\(apiData): \(apiPassingData)")
-         
-                //Api of Create remark
-                RemarkApiService.apiAddRemark(apiPassData: apiPassingData as NSDictionary) { feedbackData in
-                    if(feedbackData.count != 0 && feedbackData["error"] == nil) {
-                        let apiStatus = feedbackData["status"] as? String ?? ""
-                        if(apiStatus == "SUCCESS") {
-                            self.showToast(message: feedbackData["message"] as! String) {success in
-                                if (success) {
-                                    DispatchQueue.global().async {
-                                        sleep(1)//Delay to display toast message
-                                        DispatchQueue.main.async {
-                                            self.dismissController()
-                                            self.hideLoader()
-                                        }
+                // Wait for the async call to finish before proceeding
+                dispatchGroup.notify(queue: .main) {
+                    Logger.logInternal("\(systemInfo)")
+                    let remarkType: RemarkType = (self.dropDown.text == self.ticketType.first) ? .suggestion : .bug
+                    let userDescription = self.txtDescription.text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let description = ([self.txtDescriptionHintText, self.descriptionHintText].contains(userDescription) || userDescription.isEmpty) ? "" : userDescription
+
+                    let apiData: [String: Any] = [
+                           "additionalMetadata": AppRemarkService.shared.additionalParams ?? [:],
+                           "attachments": feedBackScreenShotData,
+                           "description": description,
+                           "deviceInfo": systemInfo,
+                           "type": remarkType.rawValue
+                       ]
+
+                    let apiKey: NSDictionary = ["appId": AppRemarkService.shared.appsOnAirCore.appId]
+                    let apiPassingData: NSDictionary = [
+                        "where": apiKey,
+                        "data": apiData
+                    ]
+
+                    Logger.logInternal("\(apiData): \(apiPassingData)")
+
+                    // Make the API call to create a remark
+                    RemarkApiService.apiAddRemark(apiPassData: apiPassingData) { feedbackData in
+                        guard feedbackData.count != 0,
+                              feedbackData["error"] == nil,
+                              let apiStatus = feedbackData["status"] as? String,
+                              apiStatus == "SUCCESS",
+                              let message = feedbackData["message"] as? String else {
+                            self.failureToast()
+                            return
+                        }
+                        
+                        self.showToast(message: message) { success in
+                            if success {
+                                DispatchQueue.global().async {
+                                    sleep(1) // Delay to display toast message
+                                    DispatchQueue.main.async {
+                                        self.dismissController()
+                                        self.hideLoader()
                                     }
                                 }
                             }
-                        }else{
-                            self.failureToast()
                         }
-                    }else{
-                        self.failureToast()
                     }
                 }
             }
