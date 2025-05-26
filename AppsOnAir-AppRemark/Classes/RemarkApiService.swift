@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import AppsOnAir_Core
 
 struct RemarkApiService {
@@ -46,7 +47,7 @@ struct RemarkApiService {
         apiResponse.resume()
     }
     
-    /// API for upload image on sepcifc bucket siginURL .  (to get signIn URL use  getSignInURL())
+    /// API for upload image on specific bucket signURL .  (to get signIn URL use  getSignInURL())
     static func apiUploadImage(image: UIImage,signUrl:String,completion: @escaping(Bool) -> ()) {
         // Convert the UIImage to Data for Upload Image
         guard let imageData = image.getImageSize() else {
@@ -119,7 +120,7 @@ struct RemarkApiService {
     static func apiAddRemark(apiPassData:NSDictionary=[:] , completion: @escaping(NSDictionary) -> ()) {
         
         // Set up the URL
-        guard let createRemarkURL = URL(string: EnvironmentConfig.serverURL) else {
+        guard let createRemarkURL = URL(string: EnvironmentConfig.addFeedback) else {
             Logger.logInternal(errorURL)
             return
         }

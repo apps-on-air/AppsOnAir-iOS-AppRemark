@@ -41,7 +41,10 @@ class ViewController: UIViewController {
           // Define the action when button is pressed
            @objc func buttonPressed() {
                // Help to enable remark services where using Options customize the remark screen and customize text and raiseNewTicket is true for opening the remark screen on particular event , without capture screenshot and raiseNewTicket is set to false for only customize the remark screen  and extraPayload is for added custom and additional params.
-               appsOnAirRemarkServices.addRemark(extraPayload: ["XX":"XX"])
+               appsOnAirRemarkServices.addRemark()
+               // Help to add additional params.
+               appsOnAirRemarkServices.setAdditionalMetaData(extraPayload: [
+                                                                            "UserID":"123456"])
            }
 
 
