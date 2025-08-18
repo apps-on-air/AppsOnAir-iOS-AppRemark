@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'Appsonair services for user feedback submission.'
   
   s.homepage         = 'https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup/'
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.dependency 'Toast-Swift', '5.1.1'
   s.dependency 'LWPhotoEditor', '0.1.0'
   # AppsOnAir Core pod
-  s.dependency 'AppsOnAir-Core', '0.0.5'
+  s.dependency 'AppsOnAir-Core', '0.0.6'
   
   # Access the all the UI File within the pod 
   s.resource_bundles = {

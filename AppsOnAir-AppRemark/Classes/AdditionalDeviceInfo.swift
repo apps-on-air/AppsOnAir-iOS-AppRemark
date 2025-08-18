@@ -233,7 +233,7 @@ class AdditionalDeviceInfo {
     static func fetchFontScale() -> Float {
         var fontScale: Float = 1.0
         
-#if !os(visionOS)
+    #if !os(visionOS)
         let traitCollection = UIScreen.main.traitCollection
         let contentSizeCategory = traitCollection.preferredContentSizeCategory
         
@@ -252,27 +252,33 @@ class AdditionalDeviceInfo {
         case .accessibilityExtraExtraExtraLarge: fontScale = 3.12
         default: fontScale = 1.0
         }
-#endif
+    #endif
         
-        return fontScale
+        // Round to 2 decimal places
+        return (fontScale * 100).rounded() / 100
     }
     
     // MARK: fetch locale info
     static func fetchLocaleDetails() -> String {
-        let locale = Locale.current
+        
+        // Preferred language from settings
+        let preferredLocaleIdentifier = Locale.preferredLanguages.first ?? "unknown"
+        let preferredLocale = Locale(identifier: preferredLocaleIdentifier)
 
-        let language: String
-        let region: String
+        let preferredLanguage: String
+        let preferredRegion: String
 
         if #available(iOS 16.0, *) {
-            language = locale.language.languageCode?.identifier ?? "unknown"
-            region = locale.region?.identifier ?? "unknown"
+            preferredLanguage = preferredLocale.language.languageCode?.identifier ?? "unknown"
+            preferredRegion = preferredLocale.region?.identifier ?? "unknown"
         } else {
-            language = locale.languageCode ?? "unknown"
-            region = locale.regionCode ?? "unknown"
+            preferredLanguage = preferredLocale.languageCode ?? "unknown"
+            preferredRegion = preferredLocale.regionCode ?? "unknown"
         }
 
-        return "\(language)_\(region)"
+        let getPreferredLanguage = "\(preferredLanguage)_\(preferredRegion)"
+
+        return getPreferredLanguage
     }
     
     //MARK: fetch public IP

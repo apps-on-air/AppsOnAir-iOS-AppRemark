@@ -1,3 +1,8 @@
+## 1.0.4
+
+* Upgrade dependency
+* Minor improvements
+
 ## 1.0.3
 
 * Upgrade dependency
