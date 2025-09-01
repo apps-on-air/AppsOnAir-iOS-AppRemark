@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.dependency 'Toast-Swift', '5.1.1'
   s.dependency 'LWPhotoEditor', '0.1.0'
   # AppsOnAir Core pod
-  s.dependency 'AppsOnAir-Core', '0.0.6'
+  s.dependency 'AppsOnAir-Core', '1.1.0'
   
   # Access the all the UI File within the pod 
   s.resource_bundles = {

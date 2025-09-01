@@ -322,9 +322,9 @@ class RemarkController: UIViewController {
                            "type": remarkType.rawValue
                        ]
 
-                    let apiKey: NSDictionary = ["appId": AppRemarkService.shared.appsOnAirCore.appId]
+                    let appId: NSDictionary = ["appId": AppRemarkService.shared.appsOnAirCore.appId]
                     let apiPassingData: NSDictionary = [
-                        "where": apiKey,
+                        "where": appId,
                         "data": apiData
                     ]
 
