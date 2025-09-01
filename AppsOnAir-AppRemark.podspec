@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '1.0.4'
+  s.version          = '1.1.0'
   s.summary          = 'Appsonair services for user feedback submission.'
   
   s.homepage         = 'https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup/'
