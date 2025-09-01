@@ -55,7 +55,7 @@ public class AppRemarkService:NSObject {
     var buttonBackgroundColor: String?
     
     /// set Additional params while init
-    var additionalParams: [String:String]?
+    var additionalParams: [String:Any]?
     
     /// set Shake gesture
     var shakeGestureEnable: Bool?
@@ -125,7 +125,7 @@ public class AppRemarkService:NSObject {
     
     /// help to add additional params  of app
     @objc public func setAdditionalMetaData(extraPayload: NSDictionary) {
-        self.additionalParams = extraPayload as? [String : String] ?? nil
+        self.additionalParams = extraPayload as? [String: Any] ?? nil
     }
     
     private func openRemarkScreen() {

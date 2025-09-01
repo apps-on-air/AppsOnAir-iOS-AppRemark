@@ -23,12 +23,12 @@ Minimum deployment target: 14.0
 
 
 ## USAGE 
-Add APIKey in your app info.plist file.
+Add application id in your app info.plist file.
 ```xml
-<key>AppsOnAirAPIKey</key>
+<key>AppsonairAppId</key>
 <string>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</string>
 ```
-how to get APIKey for more details check this [URL](https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup)
+how to get application id for more details check this [URL](https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup)
 
 This pod requires photo permissions. Add the following usage description to your Info.plist:
 
@@ -59,11 +59,11 @@ Swift / SwiftUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let appOnAirRemarkService = AppRemarkService.shared
+    let appRemarkService = AppRemarkService.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appOnAirRemarkService.initialize(shakeGestureEnable: false,options: ["appBarBackgroundColor":"DAF7A6"])
+        appRemarkService.initialize(shakeGestureEnable: false,options: ["appBarBackgroundColor":"DAF7A6"])
         return true
     }
 }
@@ -115,7 +115,7 @@ Objective-c
 Swift / SwiftUI
 ```swift
 class ViewController: UIViewController {
-    let appsOnAirRemarkServices = AppRemarkService.shared
+    let appRemarkService = AppRemarkService.shared
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
           // Define the action when button is pressed
            @objc func buttonPressed() {
                // Help to open the manually open feedback screen 
-               appsOnAirRemarkServices.addRemark()
+               appRemarkService.addRemark()
            }
 
 
@@ -203,11 +203,11 @@ Swift / SwiftUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let appOnAirRemarkService = AppRemarkService.shared
+    let appRemarkService = AppRemarkService.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-        appOnAirRemarkService.setAdditionalMetaData(extraPayload: ["UserID":"UserID"])
+        appRemarkService.setAdditionalMetaData(extraPayload: ["UserID":"UserID"])
         return true
     }
 }
@@ -264,7 +264,7 @@ Here are the available options (optional) and these options will help you custom
 
 
 ## Documentation
-more detail refer this [documentation](https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup).
+more detail refer this [documentation](https://documentation.appsonair.com/MobileQuickstart/GettingStarted).
 ## Author
 
 devtools-logicwind, devtools@logicwind.com
