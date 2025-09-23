@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
   s.version          = '1.1.1'
-  s.summary          = 'Appsonair services for user feedback submission.'
+  s.summary          = 'AppsOnAir services for user feedback submission.'
   
   s.homepage         = 'https://documentation.appsonair.com/category/appremark-beta'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
