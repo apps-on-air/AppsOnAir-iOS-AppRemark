@@ -4,9 +4,7 @@ import AVFoundation
 import Photos
 import Contacts
 import EventKit
-import CoreMotion
 import WidgetKit
-import CoreBluetooth
 import LocalAuthentication
 import Network
 import CoreTelephony
@@ -85,20 +83,7 @@ class AdditionalDeviceInfo {
         @unknown default: return "unknown"
         }
     }
-    
-    //MARK: fetch the motion permission status
-    //fetch motion permission status
-    static func fetchMotionPermission() -> String {
-        let status = CMMotionActivityManager.authorizationStatus()
-        switch status {
-        case .authorized: return "authorized"
-        case .denied: return "denied"
-        case .notDetermined: return "notDetermined"
-        case .restricted: return "restricted"
-        @unknown default: return "unknown"
-        }
-    }
-    
+
     //MARK: createPermission for handling permission
     static private func createPermission(infoPlistKey: String,
                                  isEnable: String,
@@ -139,10 +124,6 @@ class AdditionalDeviceInfo {
             case type.contains("Calendar"):
                 lsPermissionsInfo = createPermission(infoPlistKey: "NSCalendarsUsageDescription", isEnable: fetchCalenderPermission(EKEventStore.authorizationStatus(for: .event)))
                 
-            case type.contains("Motion"):
-                lsPermissionsInfo = createPermission(infoPlistKey: "NSMotionUsageDescription", isEnable: fetchMotionPermission())
-                
-                
             case type.contains("Reminder"):
                 lsPermissionsInfo = createPermission(infoPlistKey: "NSRemindersUsageDescription", isEnable: fetchCalenderPermission(EKEventStore.authorizationStatus(for: .reminder)))
                 
@@ -151,14 +132,6 @@ class AdditionalDeviceInfo {
                 
             case type.contains("UIBackgroundModes"):
                 lsPermissionsInfo = createPermission(infoPlistKey: "UIBackgroundModes", isEnable: "authorized" , permissionValue: fetchBackgroundModes())
-                
-            case type.contains("Bluetooth"):
-                if #available(iOS 13.1, *) {
-                    lsPermissionsInfo = createPermission(infoPlistKey: "NSBluetoothAlwaysUsageDescription", isEnable: fetchBluetoothPermission())
-                    
-                } else {
-                    continue // Skip for iOS below 13.1
-                }
                 
             default:
                 lsPermissionsInfo = [:]
@@ -191,20 +164,6 @@ class AdditionalDeviceInfo {
         }
         return biometryInfo;
         
-    }
-    
-    // MARK: fetch permission status of bluetooth
-    /// fetch permission status of bluetooth
-    @available(iOS 13.1, *)
-    static func fetchBluetoothPermission() -> String {
-        let status = CBCentralManager.authorization
-        switch status {
-        case .allowedAlways:return "authorized"
-        case .notDetermined: return "notDetermined"
-        case .denied: return "denied"
-        case .restricted: return "denied"
-        @unknown default: return "unknown"
-        }
     }
     
     // MARK: fetch font scaling
