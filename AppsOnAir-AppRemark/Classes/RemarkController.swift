@@ -217,12 +217,12 @@ class RemarkController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    //get current pod version
-    @objc private func getPodVersion() -> String {
-        let podVersion = Bundle(for: AppRemarkService.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        Logger.logInternal(podVersion)
-        return podVersion
+    @objc private func getPodVersion(isAppLink:Bool = false,isAppSync:Bool = false) -> String {
+        let version  = SdkManager.shared.getVersion(for: isAppLink ? "AppsOnAir-AppLink" : isAppSync ? "AppsOnAir-AppSync": "AppsOnAir-AppRemark")
+        Logger.logInternal("Version: \(version)")
+        return version
     }
+
     
     @objc func btnSubmit(_ sender: UIButton){
         showLoader()
@@ -287,7 +287,7 @@ class RemarkController: UIViewController {
                 dispatchGroup.enter()
                 
                 // Step 2: Get Device Info asynchronously
-                AppRemarkService.shared.appsOnAirCore.getDeviceInfo(additionalInfo: ["appRemarkVersion": self.getPodVersion()]) { deviceInfo in
+                AppRemarkService.shared.appsOnAirCore.getDeviceInfo(additionalInfo: ["appRemarkVersion": self.getPodVersion(),"appLinkVersion":self.getPodVersion(isAppLink: true),"appSyncVersion":self.getPodVersion(isAppSync: true)]) { deviceInfo in
                     var deviceDetails = (deviceInfo["deviceInfo"] as? [String: Any]) ?? [:]
                     let appPermission:[String:String] = AdditionalDeviceInfo.permissionsInfo() as [String : String]
                     deviceDetails.merge([

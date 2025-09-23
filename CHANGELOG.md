@@ -1,3 +1,8 @@
+## 1.1.1
+
+* Dependency upgrade 
+* Minor improvements
+
 ## 1.1.0
 
 * Dependency upgrade 

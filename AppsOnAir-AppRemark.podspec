@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppsOnAir-AppRemark'
-  s.version          = '1.1.0'
+  s.version          = '1.1.1'
   s.summary          = 'Appsonair services for user feedback submission.'
   
-  s.homepage         = 'https://documentation.appsonair.com/Mobile-Quickstart/ios-sdk-setup/'
+  s.homepage         = 'https://documentation.appsonair.com/category/appremark-beta'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'devtools-logicwind' => 'devtools@logicwind.com' }
   s.source           = { :git => 'https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git', :tag => s.version.to_s }
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.dependency 'Toast-Swift', '5.1.1'
   s.dependency 'LWPhotoEditor', '0.1.0'
   # AppsOnAir Core pod
-  s.dependency 'AppsOnAir-Core', '1.1.0'
+  s.dependency 'AppsOnAir-Core', '1.1.1'
   
   # Access the all the UI File within the pod 
   s.resource_bundles = {
@@ -32,6 +32,6 @@ Pod::Spec.new do |s|
   } # for access SwiftUI  inside Feedbacks 
   
   
-  s.source_files = 'AppsOnAir-AppRemark/Classes/**/*'
+  s.source_files = 'AppsOnAir-AppRemark/Classes/**/*.{swift,h,m}'
   
 end
