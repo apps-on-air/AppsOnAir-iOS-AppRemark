@@ -217,9 +217,28 @@ class RemarkController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func getPodVersion(isAppLink:Bool = false,isAppSync:Bool = false) -> String {
-        let version  = SdkManager.shared.getVersion(for: isAppLink ? "AppsOnAir-AppLink" : isAppSync ? "AppsOnAir-AppSync": "AppsOnAir-AppRemark")
-        Logger.logInternal("Version: \(version)")
+    @objc private func getPodVersion(isAppLink: Bool = false, isAppSync: Bool = false) -> String {
+        // Determine SDK name
+        let sdkName: String
+        if isAppLink {
+            sdkName = "AppsOnAir-AppLink"
+        } else if isAppSync {
+            sdkName = "AppsOnAir-AppSync"
+        } else {
+            sdkName = "AppsOnAir-AppRemark"
+        }
+        
+        // Fetch version
+        let version = SdkManager.shared.getVersion(for: sdkName)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Return empty string if missing
+        if version.isEmpty {
+            Logger.logInternal("⚠️ Version not found for \(sdkName)")
+            return ""
+        }
+        
+        Logger.logInternal("✅ Version (\(sdkName)): \(version)")
         return version
     }
 
@@ -227,9 +246,12 @@ class RemarkController: UIViewController {
     @objc func btnSubmit(_ sender: UIButton){
         showLoader()
         view.endEditing(true)
-        let AppsOnAirAppId  = AppRemarkService.shared.appsOnAirCore.appId
+        
+        let appService = AppRemarkService.shared
+        
+        let appsOnAirAppId = appService.appsOnAirCore.appId
         //Check internet connectivity
-        if ((AppRemarkService.shared.appsOnAirCore.isNetworkConnected ?? false) && !(AppsOnAirAppId.isEmpty) ) {
+        if ((AppRemarkService.shared.appsOnAirCore.isNetworkConnected ?? false) && !(appsOnAirAppId.isEmpty) ) {
             
             let dispatchGroup = DispatchGroup()
            
@@ -246,25 +268,37 @@ class RemarkController: UIViewController {
                 Logger.logInternal("\(echoTime) \(epochTimeInMilliseconds)")
                 let fullFileName = "\((Bundle.main.appName ?? "").isEmpty ? "" : "\(Bundle.main.appName ?? "")_")\(epochTimeInMilliseconds)"
                 let fileType = "image/\(selectedImage?[index].getFileType() ?? "")"
-                let imageData:NSDictionary = [
-                  "data": [
-                    "fileName": fullFileName,
-                    "fileType": fileType
-                  ]
-                ]
                 
                 // convert image bytes into MB for BackEnd
                 let imageSizeInBytes = Double(self.selectedImage?[index].getImageSize()?.count ?? 0)
                 let imageSizeInMB = imageSizeInBytes / (1024.0 * 1024.0)
-                let imageSize = Double(round(100 * imageSizeInMB) / 100) // round of 2 decimal point
+                let imageSize = String(format: "%.2f", imageSizeInMB)
+                
+                
+                let imageData:NSDictionary = [
+                  "data": [
+                    "fileName": fullFileName,
+                    "fileType": fileType,
+                    "appId":appsOnAirAppId,
+                    "fileSize":imageSizeInBytes
+                  ]
+                ]
                 
                 //Api of getSignIn
                 RemarkApiService.apiGetSignInURL(apiGetSignInPassData: imageData) { signInData in
-                    guard signInData.count != 0,
-                          let signInData = signInData["data"] as? NSDictionary,
-                          let signInUploadUrl = signInData["signedURL"] as? String,
-                          let signInURL = signInData["fileUrl"] as? String else {
+                    guard
+                        let dataDict = signInData["data"] as? NSDictionary,
+                        let statusCode = signInData["status"] as? String,
+                        statusCode == "SUCCESS",
+                        let signInUploadUrl = dataDict["signedURL"] as? String,
+                        let signInURL = dataDict["fileUrl"] as? String
+                    else {
+                        Logger.logInternal("signInData \(signInData)")
+//                        if((signInData["statusCode"] as? Int) == 403){
+                        let feedBackReponse = ["status": APIStatus.failure.rawValue, "message": signInData["message"] as? String ?? errorSomethingWentWrong]
+//                        }
                         self.failureToast()
+                        AppRemarkService.shared.remarkResponse = feedBackReponse
                         return
                     }
 
@@ -273,7 +307,9 @@ class RemarkController: UIViewController {
                             feedBackScreenShotData.append(["key": signInURL, "fileType": fileType, "size": imageSize])
                             dispatchGroup.leave()
                         } else {
+                            let feedBackReponse = ["status": APIStatus.failure.rawValue, "message": errorSomethingWentWrong]
                             self.failureToast()
+                            AppRemarkService.shared.remarkResponse = feedBackReponse
                             return
                         }
                     }
@@ -331,23 +367,37 @@ class RemarkController: UIViewController {
                     Logger.logInternal("\(apiData): \(apiPassingData)")
 
                     // Make the API call to create a remark
-                    RemarkApiService.apiAddRemark(apiPassData: apiPassingData) { feedbackData in
-                        guard feedbackData.count != 0,
-                              feedbackData["error"] == nil,
-                              let apiStatus = feedbackData["status"] as? String,
-                              apiStatus == "SUCCESS",
-                              let message = feedbackData["message"] as? String else {
-                            self.failureToast()
+                    // Make the API call to create a remark
+                    RemarkApiService.apiAddRemark(apiPassData: apiPassingData) { feedBackInfo in
+                        let message = (feedBackInfo["message"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
+                            ?? errorSomethingWentWrong
+                        let isSuccess = feedBackInfo["error"] == nil &&
+                        feedBackInfo["status"] as? String == APIStatus.success.rawValue &&
+                                        !message.isEmpty
+                        let status = isSuccess ? APIStatus.success.rawValue : APIStatus.failure.rawValue
+                        
+                        guard isSuccess
+                        else {
+                            DispatchQueue.main.async {
+                                updateResponse()
+                                self.failureToast()
+                            }
                             return
                         }
-                        
-                        self.showToast(message: message) { success in
-                            if success {
-                                DispatchQueue.global().async {
-                                    sleep(1) // Delay to display toast message
+
+                        func updateResponse() {
+                            AppRemarkService.shared.remarkResponse = ["status": status, "message": message]
+                        }
+
+                        DispatchQueue.main.async {
+                            self.showToast(message: message) { success in
+                                guard success else { return }
+                                DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
                                     DispatchQueue.main.async {
                                         self.dismissController()
                                         self.hideLoader()
+                                        updateResponse()
+                                        return
                                     }
                                 }
                             }
@@ -355,7 +405,7 @@ class RemarkController: UIViewController {
                     }
                 }
             }
-        }else if (AppsOnAirAppId.isEmpty){
+        }else if (appsOnAirAppId.isEmpty){
             self.failureToast()
         }else{
             self.failureToast(isNetworkError: true)

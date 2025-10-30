@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import IQKeyboardToolbarManager
 import UIKit
 import AVFoundation
@@ -60,10 +61,20 @@ public class AppRemarkService:NSObject {
     /// set Shake gesture
     var shakeGestureEnable: Bool?
     
+    // Listener for whenever remark is submit
+    private var remarkListener: AnyCancellable?
+    
+    //Listner when value is updated
+    @Published var remarkResponse: [String:Any]?
+    
+    deinit {
+        // Cancel the listener when the object is deallocated
+        remarkListener?.cancel()
+    }
     //MARK: - Methods
         
     /// setup remark screen with options for customize and shakeGestureEnable is for enable shake Gesture , default it is true
-    @objc public func initialize(shakeGestureEnable:Bool = true,options: NSDictionary = [:]) {
+    @objc public func initialize(shakeGestureEnable:Bool = true,options: NSDictionary = [:],onRemarkResponse: @escaping ([String:Any]) -> ()) {
         
         // Help to initialize the core services of AppsOnAir
         appsOnAirCore.initialize()
@@ -82,6 +93,16 @@ public class AppRemarkService:NSObject {
                 result[stringKey.lowercased()] = pair.value
             }
         }
+        
+        guard self.remarkListener == nil else { return }
+                   // Listener for link and link info
+        self.remarkListener = self.$remarkResponse
+            .dropFirst()
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    onRemarkResponse(self?.remarkResponse ?? [:])
+                }
+            }
         
         self.appBarBackgroundColor = customizeOptions["appbarbackgroundcolor"] as? String
         self.appBarTitleText = customizeOptions["appbartitletext"] as? String

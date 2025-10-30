@@ -13,12 +13,15 @@ import AppsOnAir_AppRemark
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let appsOnAirRemarkServices = AppRemarkService.shared
+    let appRemarkService = AppRemarkService.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appsOnAirRemarkServices.initialize(shakeGestureEnable: true,options: ["inputTextColor":"#FF0000","buttonText":"Submit"])
-        appsOnAirRemarkServices.setAdditionalMetaData(extraPayload: ["UserName":"UserName",
+        appRemarkService.initialize(shakeGestureEnable: true,options: ["inputTextColor":"#FF0000","buttonText":"Submit"]){ remarkInfo in
+            //Write the code for handling success and failure in remark info
+        }
+
+        appRemarkService.setAdditionalMetaData(extraPayload: ["UserName":"UserName",
                                                                      "UserID":"123456"])
         return true
     }

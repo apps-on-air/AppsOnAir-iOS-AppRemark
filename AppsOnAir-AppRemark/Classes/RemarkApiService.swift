@@ -5,7 +5,7 @@ import AppsOnAir_Core
 struct RemarkApiService {
     
     /// API for get signInURL to upload image on bucket
-    static func apiGetSignInURL(apiGetSignInPassData:NSDictionary=[:] , completion: @escaping(NSDictionary) -> ()) {
+    static func apiGetSignInURL(apiGetSignInPassData:NSDictionary=[:] , completion: @escaping([String:Any]) -> ()) {
         // getSignIn URL from EnvironmentConfig
         let signInURL = EnvironmentConfig.getSignInURL
         let apiURL : URL = URL(string: signInURL)!
@@ -29,18 +29,17 @@ struct RemarkApiService {
                     if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                         Logger.logInternal("\(getSignInURL) \(responseJson) \(json)")
                         if let httpResponse = response as? HTTPURLResponse {
-                            if httpResponse.statusCode == 200 {
-                                completion(json as NSDictionary)
-                            } else {
+                            if httpResponse.statusCode != 200 {
                                 Logger.logInternal("\(failedGetURL) \(statusCode) \(httpResponse.statusCode)")
-                                completion([:])
                             }
+                            completion(json as [String:Any])
                         }
                     }
                 } else {
                     completion([:])
                 }
             } catch let error as NSError {
+                completion([:])
                 Logger.logInternal("\(failedToLoad) \(error.localizedDescription)")
             }
         }
@@ -103,13 +102,9 @@ struct RemarkApiService {
             
             // Optionally, check the response
             if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    Logger.logInternal(imageUploadSuccess)
-                    completion(true)
-                } else {
-                    Logger.logInternal("\(errorUploadImage) \(statusCode) \(httpResponse.statusCode)")
-                    completion(false)
-                }
+                let isSuccess = httpResponse.statusCode == 200
+                Logger.logInternal(isSuccess ? imageUploadSuccess : "\(errorUploadImage) \(statusCode) \(httpResponse.statusCode)")
+                completion(isSuccess)
             }
         }
         // Start the network task
@@ -117,7 +112,7 @@ struct RemarkApiService {
     }
 
     /// API for add App remark data including upload image URLs to appsOnAir server.
-    static func apiAddRemark(apiPassData:NSDictionary=[:] , completion: @escaping(NSDictionary) -> ()) {
+    static func apiAddRemark(apiPassData:NSDictionary=[:] , completion: @escaping([String:Any]) -> ()) {
         
         // Set up the URL
         guard let createRemarkURL = URL(string: EnvironmentConfig.addFeedback) else {
@@ -143,18 +138,17 @@ struct RemarkApiService {
                     if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                         Logger.logInternal("\(responseJson) \(json)")
                         if let httpResponse = response as? HTTPURLResponse {
-                            if httpResponse.statusCode == 200 {
-                                completion(json as NSDictionary)
-                            } else {
+                            if httpResponse.statusCode != 200 {
                                 Logger.logInternal("\(failedToLoad) \(statusCode) \(httpResponse.statusCode)")
-                                completion([:])
                             }
+                            completion(json as [String:Any])
                         }
                     }
                 } else {
                     completion([:])
                 }
             } catch let error as NSError {
+                completion([:])
                 Logger.logInternal("\(failedToLoad) \(error.localizedDescription)")
             }
         }
