@@ -45,7 +45,7 @@ let errorUploadImage = "Error uploading image:"
 
 let errorNetwork = "Please check internet connection" // !!!: Developer Guideline URL
 
-let errorSomethingWentWrong = "Something Went Wrong"
+let errorSomethingWentWrong = "Something went wrong, please try later!"
 
 let getSignInURL = "getSignIn"
 
@@ -68,3 +68,7 @@ enum RemarkType: String {
     case bug = "BUG"
 }
 
+enum APIStatus: String {
+    case success = "SUCCESS"
+    case failure = "FAILURE"
+}

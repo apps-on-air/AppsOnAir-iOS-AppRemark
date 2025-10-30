@@ -63,7 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // help to initialize remark services and customized the screen also using optional
-        appRemarkService.initialize(shakeGestureEnable: false,options: ["appBarBackgroundColor":"DAF7A6"])
+        appRemarkService.initialize(shakeGestureEnable: true,options: ["appBarBackgroundColor":"DAF7A6"]) { remarkInfo in
+            // write the code for handling success and failure case
+        }
         return true
     }
 }
@@ -89,7 +91,9 @@ Objective-c
     self.appRemarkService = [AppRemarkService shared];
     
     // Help to initialize remark services and customized the screen also using optional
-    [self.appRemarkService initializeWithShakeGestureEnable:true options:@{@"appBarBackgroundColor": @"DAF7A6"}];
+    [self.appRemarkService initializeWithShakeGestureEnable:true options:@{@"appBarBackgroundColor": @"DAF7A6"} onRemarkResponse:^(NSDictionary<NSString *,id> * remarkInfo) {
+        // write the code for handling success and failure case
+    }];
     // Override point for customization after application launch.
     return YES;
 }
