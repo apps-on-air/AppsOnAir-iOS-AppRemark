@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Introduced `onRemarkResponse` feedback listener in initialize method to process success and failure responses.
+
 ## 1.1.1
 
 * Dependency upgrade 
