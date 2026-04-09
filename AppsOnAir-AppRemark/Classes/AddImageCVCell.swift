@@ -1,11 +1,13 @@
-import UIKit
+#if canImport(UIKit)
+    import UIKit
 
-class AddImageCVCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        imageView.contentMode = .scaleAspectFill
+    class AddImageCVCell: UICollectionViewCell {
+        @IBOutlet weak var imageView: UIImageView!
+
+        override func awakeFromNib() {
+            super.awakeFromNib()
+            imageView.contentMode = .scaleAspectFill
+        }
+
     }
-
-}
+#endif
