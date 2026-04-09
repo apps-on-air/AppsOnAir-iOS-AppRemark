@@ -1,4 +1,3 @@
-## [![pub package](https://appsonair.com/images/logo.svg)](https://cocoapods.org/pods/AppsOnAir-AppRemark)
 # AppsOnAir-AppRemark
 
 [![Version](https://img.shields.io/cocoapods/v/AppsOnAir-AppRemark.svg?style=flat)](https://cocoapods.org/pods/AppsOnAir-AppRemark)
