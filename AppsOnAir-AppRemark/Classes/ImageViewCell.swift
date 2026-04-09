@@ -1,19 +1,21 @@
-import UIKit
+#if canImport(UIKit)
+    import UIKit
 
-class ImageViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var bgImageView: UIView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var btnRemove: UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    class ImageViewCell: UICollectionViewCell {
 
-        // set image of screen shot
-        imageView.contentMode = .scaleAspectFill
+        @IBOutlet weak var bgImageView: UIView!
+        @IBOutlet weak var imageView: UIImageView!
+        @IBOutlet weak var btnRemove: UIButton!
 
-        // set remove button text
-        btnRemove.setTitle("", for: .normal)
+        override func awakeFromNib() {
+            super.awakeFromNib()
+
+            // set image of screen shot
+            imageView.contentMode = .scaleAspectFill
+
+            // set remove button text
+            btnRemove.setTitle("", for: .normal)
+        }
+
     }
-
-}
+#endif

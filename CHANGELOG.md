@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Added support for Swift Package Manager (SPM).
+
 ## 1.1.2
 
 * Introduced `onRemarkResponse` feedback listener in initialize method to process success and failure responses.
