@@ -10,11 +10,45 @@ AppsOnAir-AppRemark simplifies feedback collection, allowing users to report bug
 
 ## Installation
 
+### CocoaPods
+
 AppsOnAir-AppRemark is available through [CocoaPods](https://cocoapods.org). To use or install AppsOnAir-AppRemark with CocoaPods,
 simply add the following line to your Podfile:
 
 ```ruby
 pod 'AppsOnAir-AppRemark'
+```
+
+### Swift Package Manager
+
+AppsOnAir-AppRemark is also available through [Swift Package Manager](https://swift.org/package-manager/).
+
+**Using Xcode:**
+
+1. In Xcode, go to **File > Add Package Dependencies...**
+2. Enter the repository URL:
+   ```
+   https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git
+   ```
+3. Select the version rule (e.g. **Up to Next Major**) and click **Add Package**.
+4. Select the `AppsOnAir-AppRemark` product and add it to your target.
+
+**Using `Package.swift`:**
+
+Add the following dependency to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git", from: "1.2.0")
+],
+targets: [
+    .target(
+        name: "YourTarget",
+        dependencies: [
+            .product(name: "AppsOnAir-AppRemark", package: "AppsOnAir-iOS-AppRemark")
+        ]
+    )
+]
 ```
 
 ## Requirements
