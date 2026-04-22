@@ -31,7 +31,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apps-on-air/AppsOnAir-iOS-Core.git",
-            exact: "1.2.0"
+            exact: "1.2.1"
         ),
     ],
     targets: [
@@ -45,9 +45,6 @@ let package = Package(
                 .product(name: "AppsOnAir-Core", package: "AppsOnAir-iOS-Core"),
             ],
             path: "AppsOnAir-AppRemark",
-            exclude: [
-                "Assets/AppRemarkInfo.plist"
-            ],
             sources: ["Classes"],
             resources: [
                 // Compiled asset catalogue → Assets.car in Bundle.module
@@ -57,6 +54,7 @@ let package = Package(
                 // Compiled XIBs
                 .process("Assets/ImageViewCell.xib"),
                 .process("Assets/AddImageCVCell.xib"),
+                .process("Assets/AppsOnAir-AppRemarkInfo.plist"),
             ],
             swiftSettings: [
                 .define("SWIFT_PACKAGE")
