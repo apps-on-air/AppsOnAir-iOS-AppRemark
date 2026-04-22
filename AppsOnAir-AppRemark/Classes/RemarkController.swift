@@ -231,10 +231,6 @@
 
         @objc private func getPodVersion(isAppLink: Bool = false, isAppSync: Bool = false) -> String
         {
-#if SWIFT_PACKAGE
-            // SdkManager is CocoaPods-specific and is not available in SPM builds.
-            return ""
-#else
             // Determine SDK name
             let sdkName: String
             if isAppLink {
@@ -257,7 +253,6 @@
 
             Logger.logInternal("✅ Version (\(sdkName)): \(version)")
             return version
-#endif
         }
 
         @objc func btnSubmit(_ sender: UIButton) {
