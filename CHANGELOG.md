@@ -1,3 +1,7 @@
+## 1.2.2
+
+* Updated `AppsOnAir-Core` dependency constraint to allow versions >= 1.1.1
+
 ## 1.2.1
 
 * Minor improvements
