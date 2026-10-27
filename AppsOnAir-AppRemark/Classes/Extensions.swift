@@ -1,7 +1,6 @@
 #if canImport(UIKit)
     import UIKit
     import Foundation
-    import CoreMotion
     #if SWIFT_PACKAGE
     import Toast        // SPM module name
     #else
@@ -128,16 +127,14 @@
             // Set the view controller to become the first responder
             _ = self.view  // Ensure the view is loaded
             _ = self.becomeFirstResponder()
-
-            // Add motion detection
-            let motionManager = CMMotionManager()
-            motionManager.startAccelerometerUpdates()
         }
 
-        ///help to manage when motion is detected
+        ///help to manage when motion is detected, skipped while ShakeDetector handles shakes for a set shakeSensitivity
         open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 
-            if motion == .motionShake && (AppRemarkService.shared.shakeGestureEnable ?? false) {
+            if motion == .motionShake && (AppRemarkService.shared.shakeGestureEnable ?? false)
+                && !ShakeDetector.shared.isActive
+            {
                 Logger.logInternal(shakeGestureDetected)
                 handleShakeGesture()
             }

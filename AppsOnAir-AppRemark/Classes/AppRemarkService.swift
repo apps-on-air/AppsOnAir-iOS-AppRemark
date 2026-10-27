@@ -62,6 +62,9 @@
         /// set Shake gesture
         var shakeGestureEnable: Bool?
 
+        /// set Shake sensitivity, nil keeps the system shake gesture
+        var shakeSensitivity: ShakeSensitivity?
+
         // Listener for whenever remark is submit
         private var remarkListener: AnyCancellable?
 
@@ -77,6 +80,27 @@
         /// setup remark screen with options for customize and shakeGestureEnable is for enable shake Gesture , default it is true
         @objc public func initialize(
             shakeGestureEnable: Bool = true, options: NSDictionary = [:],
+            onRemarkResponse: @escaping ([String: Any]) -> Void
+        ) {
+            setup(
+                shakeGestureEnable: shakeGestureEnable, options: options, shakeSensitivity: nil,
+                onRemarkResponse: onRemarkResponse)
+        }
+
+        /// same as above, and shakeSensitivity is for how hard the device must be shaken
+        /// passing it detects shake from accelerometer instead of the system shake gesture
+        @objc public func initialize(
+            shakeGestureEnable: Bool = true, options: NSDictionary = [:],
+            shakeSensitivity: ShakeSensitivity,
+            onRemarkResponse: @escaping ([String: Any]) -> Void
+        ) {
+            setup(
+                shakeGestureEnable: shakeGestureEnable, options: options,
+                shakeSensitivity: shakeSensitivity, onRemarkResponse: onRemarkResponse)
+        }
+
+        private func setup(
+            shakeGestureEnable: Bool, options: NSDictionary, shakeSensitivity: ShakeSensitivity?,
             onRemarkResponse: @escaping ([String: Any]) -> Void
         ) {
 
@@ -132,10 +156,17 @@
 
             // Init the Shake motion feature
             self.shakeGestureEnable = shakeGestureEnable
+            if let shakeSensitivity = shakeSensitivity {
+                self.shakeSensitivity = shakeSensitivity
+            }
 
             // set once remark screen open
             if self.shakeGestureEnable ?? false {
                 _ = UIViewController.classInit
+                // without shakeSensitivity the system shake gesture is used, same as before
+                if let shakeSensitivity = self.shakeSensitivity {
+                    ShakeDetector.shared.start(sensitivity: shakeSensitivity)
+                }
             }
 
             // To enable for managing distance between keyboard and textField.
@@ -152,6 +183,15 @@
         /// help to add additional params  of app
         @objc public func setAdditionalMetaData(extraPayload: NSDictionary) {
             self.additionalParams = extraPayload as? [String: Any] ?? nil
+        }
+
+        /// help to change the shake sensitivity at runtime, eg: from app settings
+        /// it detects shake from accelerometer instead of the system shake gesture from then on
+        @objc public func setShakeSensitivity(_ shakeSensitivity: ShakeSensitivity) {
+            self.shakeSensitivity = shakeSensitivity
+            if self.shakeGestureEnable ?? false {
+                ShakeDetector.shared.start(sensitivity: shakeSensitivity)
+            }
         }
 
         private func openRemarkScreen() {

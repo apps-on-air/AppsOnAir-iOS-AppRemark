@@ -10,13 +10,26 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Redeclare the public interface inline so this file needs no header search path.
+typedef NS_ENUM(NSInteger, ShakeSensitivity) {
+    ShakeSensitivityVeryLow = 0,
+    ShakeSensitivityLow = 1,
+    ShakeSensitivityMedium = 2,
+    ShakeSensitivityHigh = 3,
+    ShakeSensitivityVeryHigh = 4,
+};
+
 @interface AppRemarkService : NSObject
 + (instancetype)shared;
 - (void)initializeWithShakeGestureEnable:(BOOL)shakeGestureEnable
                                  options:(NSDictionary *)options
                         onRemarkResponse:(void (^)(NSDictionary *remarkInfo))onRemarkResponse;
+- (void)initializeWithShakeGestureEnable:(BOOL)shakeGestureEnable
+                                 options:(NSDictionary *)options
+                        shakeSensitivity:(ShakeSensitivity)shakeSensitivity
+                        onRemarkResponse:(void (^)(NSDictionary *remarkInfo))onRemarkResponse;
 - (void)addRemark;
 - (void)setAdditionalMetaDataWithExtraPayload:(NSDictionary *)extraPayload;
+- (void)setShakeSensitivity:(ShakeSensitivity)shakeSensitivity;
 @end
 
 NS_ASSUME_NONNULL_END
@@ -71,6 +84,25 @@ NS_ASSUME_NONNULL_END
     [inv invoke];
 }
 
+- (void)initializeWithShakeGestureEnable:(BOOL)shakeGestureEnable
+                                 options:(NSDictionary *)options
+                        shakeSensitivity:(ShakeSensitivity)shakeSensitivity
+                        onRemarkResponse:(void (^)(NSDictionary *))onRemarkResponse {
+    SEL sel = NSSelectorFromString(@"initializeWithShakeGestureEnable:options:shakeSensitivity:onRemarkResponse:");
+    NSMethodSignature *sig = [self.swiftService methodSignatureForSelector:sel];
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:sig];
+    [inv setSelector:sel];
+    [inv setTarget:self.swiftService];
+    [inv setArgument:&shakeGestureEnable atIndex:2];
+    [inv setArgument:&options atIndex:3];
+    [inv setArgument:&shakeSensitivity atIndex:4];
+    id block = ^(NSDictionary *response) {
+        if (onRemarkResponse) onRemarkResponse(response);
+    };
+    [inv setArgument:&block atIndex:5];
+    [inv invoke];
+}
+
 - (void)addRemark {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -85,6 +117,16 @@ NS_ASSUME_NONNULL_END
     [inv setSelector:sel];
     [inv setTarget:self.swiftService];
     [inv setArgument:&extraPayload atIndex:2];
+    [inv invoke];
+}
+
+- (void)setShakeSensitivity:(ShakeSensitivity)shakeSensitivity {
+    SEL sel = NSSelectorFromString(@"setShakeSensitivity:");
+    NSMethodSignature *sig = [self.swiftService methodSignatureForSelector:sel];
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:sig];
+    [inv setSelector:sel];
+    [inv setTarget:self.swiftService];
+    [inv setArgument:&shakeSensitivity atIndex:2];
     [inv invoke];
 }
 
