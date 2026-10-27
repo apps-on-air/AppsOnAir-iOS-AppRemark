@@ -15,14 +15,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let appRemarkService = AppRemarkService.shared
 
+    //selected from the dropdown in ViewController, used on initialize
+    static var shakeSensitivity = ShakeSensitivity.medium
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // help to initialize remark services and customized the screen also using optional
-        appRemarkService.initialize(shakeGestureEnable: true,options: ["inputTextColor":"#FF0000","buttonText":"Submit"]){ remarkInfo in
-            //Write the code for handling success and failure in remark info
+        let options: NSDictionary = [
+            "pageBackgroundColor": "#007AFF",
+            "appBarBackgroundColor": "#1c1c9e",
+            "descriptionLabelText": "Add description here",
+            "appBarTitleColor": "#FFFFFF",
+            "remarkTypeLabelText": "Add Remark here",
+            "descriptionHintText": "Add description here..",
+            "descriptionMaxLength": 120,
+            "buttonText": "Submit Remark",
+            "buttonTextColor": "#000000",
+            "labelColor": "#FFFFFF",
+            "buttonBackgroundColor": "#FFFFFF",
+            "inputTextColor": "#000000",
+            "hintColor": "#000000",
+            "appBarTitleText": "Feedback Screen"
+        ]
+
+        //with default theme
+        //appRemarkService.initialize { remarkInfo in }
+        //with customize theme
+        //shakeGestureEnable is set to true by default, allowing the device to capture your current screen when it shakes. If it is false, the device shake's auto-capture screen will be disabled.
+        //shakeSensitivity is optional, without it the system shake gesture is used. Use .veryLow/.low to require a harder shake or .high/.veryHigh to trigger on a lighter one.
+        appRemarkService.initialize(
+            shakeGestureEnable: true,
+            options: options,
+            shakeSensitivity: AppDelegate.shakeSensitivity
+        ) { remarkInfo in
+            print("AppRemark", remarkInfo)
         }
 
-        appRemarkService.setAdditionalMetaData(extraPayload: ["UserName":"UserName",
-                                                                     "UserID":"123456"])
+        appRemarkService.setAdditionalMetaData(extraPayload: [
+            "userId": "USER_ID",
+            "isShake": true
+        ])
         return true
     }
 

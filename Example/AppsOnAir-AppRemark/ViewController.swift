@@ -11,47 +11,83 @@ import AppsOnAir_AppRemark
 
 class ViewController: UIViewController {
     let appRemarkService = AppRemarkService.shared
-  
+    let sensitivityButton = UIButton(type: .system)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-            
-        let button = UIButton(type: .system)
-                button.setTitle("Button", for: .normal)
-                button.backgroundColor = .systemBlue
-                button.setTitleColor(.white, for: .normal)
-                button.layer.cornerRadius = 10
-                
-                // Set button frame (size and position)
-                let buttonWidth: CGFloat = 150
-                let buttonHeight: CGFloat = 50
-                let xPos = (self.view.bounds.width - buttonWidth) / 2
-                let yPos = (self.view.bounds.height - buttonHeight) / 2
-                
-                // Set button frame (size and position)
-                button.frame = CGRect(x: xPos, y: yPos, width: buttonWidth, height: buttonHeight)
-                
-                // Add target for onPressed (TouchUpInside)
-                button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-                
-                // Add the button to the view
-                self.view.addSubview(button)
-          }
-    
-          // Define the action when button is pressed
-           @objc func buttonPressed() {
-               // Help to enable remark services where using Options customize the remark screen and customize text and raiseNewTicket is true for opening the remark screen on particular event , without capture screenshot and raiseNewTicket is set to false for only customize the remark screen  and extraPayload is for added custom and additional params.
-               appRemarkService.addRemark()
-               // Help to add additional params.
-               appRemarkService.setAdditionalMetaData(extraPayload: [
-                                                                            "UserID":"123456"])
-           }
 
+        // Dropdown to change shake sensitivity
+        sensitivityButton.layer.borderWidth = 1
+        sensitivityButton.layer.borderColor = UIColor.systemGray.cgColor
+        sensitivityButton.layer.cornerRadius = 4
+        sensitivityButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        sensitivityButton.showsMenuAsPrimaryAction = true
+        updateSensitivityMenu()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        let nextButton = UIButton(elevatedTitle: "Go to next", backgroundColor: .yellow)
+        nextButton.addTarget(self, action: #selector(gotoNext), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews: [sensitivityButton, nextButton])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 24
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            sensitivityButton.widthAnchor.constraint(equalToConstant: 280),
+        ])
     }
 
+    func updateSensitivityMenu() {
+        let selected = AppDelegate.shakeSensitivity
+        sensitivityButton.setTitle("Shake sensitivity: \(displayName(of: selected)) ▾", for: .normal)
+
+        let sensitivities: [ShakeSensitivity] = [.veryLow, .low, .medium, .high, .veryHigh]
+        let actions = sensitivities.map { sensitivity in
+            UIAction(title: displayName(of: sensitivity), state: sensitivity == selected ? .on : .off) { [weak self] _ in
+                self?.changeShakeSensitivity(sensitivity)
+            }
+        }
+        sensitivityButton.menu = UIMenu(title: "Shake sensitivity", children: actions)
+    }
+
+    func changeShakeSensitivity(_ shakeSensitivity: ShakeSensitivity) {
+        AppDelegate.shakeSensitivity = shakeSensitivity
+        // Help to change shake sensitivity at runtime, applied to the next shake without restarting the app
+        appRemarkService.setShakeSensitivity(shakeSensitivity)
+        updateSensitivityMenu()
+    }
+
+    func displayName(of sensitivity: ShakeSensitivity) -> String {
+        switch sensitivity {
+        case .veryLow: return "Very low"
+        case .low: return "Low"
+        case .medium: return "Medium"
+        case .high: return "High"
+        case .veryHigh: return "Very high"
+        }
+    }
+
+    @objc func gotoNext() {
+        navigationController?.pushViewController(SecondViewController(), animated: true)
+    }
 }
 
+extension UIButton {
+    /// rounded button with shadow, used for the example screens
+    convenience init(elevatedTitle title: String, backgroundColor: UIColor) {
+        self.init(type: .system)
+        setTitle(title, for: .normal)
+        setTitleColor(.black, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
+        self.backgroundColor = backgroundColor
+        contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+        layer.cornerRadius = 22
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.3
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 4
+    }
+}
