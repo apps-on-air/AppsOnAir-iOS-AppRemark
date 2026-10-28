@@ -133,6 +133,46 @@ Objective-c
 
 ```
 
+### Shake Sensitivity
+
+`shakeSensitivity` controls how hard the device must be shaken to open the feedback screen. It is optional: when it is not passed, the iOS system shake gesture is used, same as previous versions.
+
+| Value       | Description                                                  |
+|:------------|:-------------------------------------------------------------|
+| `.veryLow`  | Needs a very hard, deliberate shake                          |
+| `.low`      | Needs a firm shake, useful for apps used on the move         |
+| `.medium`   | Needs a normal shake                                         |
+| `.high`     | Triggers on a light shake                                    |
+| `.veryHigh` | Triggers on a very light shake, useful for testers           |
+
+Swift / SwiftUI
+```swift
+appRemarkService.initialize(shakeGestureEnable: true, options: ["appBarBackgroundColor":"DAF7A6"], shakeSensitivity: .high) { remarkInfo in
+    // write the code for handling success and failure case
+}
+```
+
+Objective-c
+```swift
+[self.appRemarkService initializeWithShakeGestureEnable:true options:@{@"appBarBackgroundColor": @"DAF7A6"} shakeSensitivity:ShakeSensitivityHigh onRemarkResponse:^(NSDictionary<NSString *,id> * remarkInfo) {
+    // write the code for handling success and failure case
+}];
+```
+
+To change the sensitivity later (for example from your app settings), call `setShakeSensitivity`. It applies to the next shake, also when `initialize` was called without `shakeSensitivity`.
+
+Swift / SwiftUI
+```swift
+AppRemarkService.shared.setShakeSensitivity(.low)
+```
+
+Objective-c
+```swift
+[[AppRemarkService shared] setShakeSensitivity:ShakeSensitivityLow];
+```
+
+>Note: On the iOS Simulator there is no accelerometer, so `shakeSensitivity` is ignored there and Device > Shake (⌃⌘Z) opens the feedback screen.
+
 ## 2.Manually Triggering Feedback Screen from Any Code
 You can also trigger the feedback screen manually, such as from a button action:
 ### Firstly, import AppsOnAir_AppRemark in your ViewController file or swift code file

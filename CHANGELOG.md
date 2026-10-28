@@ -1,6 +1,9 @@
 ## 1.2.2
 
 * Updated `AppsOnAir-Core` dependency constraint to allow versions >= 1.1.1
+* Added optional `shakeSensitivity` parameter to `initialize` (`veryLow`, `low`, `medium`, `high`, `veryHigh`) to control how hard the device must be shaken to open the feedback screen.
+* Updated SPM `AppsOnAir-Core` dependency to allow versions from 1.2.0.
+* Added unit tests for the SDK.
 
 ## 1.2.1
 
