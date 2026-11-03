@@ -1,3 +1,8 @@
+## 1.3.0
+
+* Raised minimum deployment target to iOS 15.0, as Xcode 27 no longer builds for older versions.
+* Added support for iOS 27 SDK: picks the active window scene for screenshots and theme detection, and the example app now uses the UIScene lifecycle.
+
 ## 1.2.3
 
 * Added optional `shakeSensitivity` parameter to `initialize` (`veryLow`, `low`, `medium`, `high`, `veryHigh`) to control how hard the device must be shaken to open the feedback screen.
