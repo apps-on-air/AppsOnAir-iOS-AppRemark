@@ -294,8 +294,9 @@
         static func fetchThemeMode() -> String {
             var themeMode: String = "Unspecified"
 
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first
+            if let windowScene = UIApplication.shared.activeWindowScene,
+                let window = windowScene.windows.first(where: { $0.isKeyWindow })
+                    ?? windowScene.windows.first
             {
                 let style = window.traitCollection.userInterfaceStyle
                 switch style {

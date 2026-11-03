@@ -150,8 +150,7 @@
             NotificationCenter.default.post(
                 name: NSNotification.Name("visibilityChanges"), object: nil,
                 userInfo: ["isPresented": true])
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first(where: { $0.isKeyWindow }),
+            if let window = UIApplication.shared.activeWindow,
                 let captureImage = window.takeScreenshot()
             {
 
@@ -332,8 +331,8 @@
             // Begin image context
             UIGraphicsBeginImageContextWithOptions(screenBounds.size, false, UIScreen.main.scale)
 
-            // Use UIWindowScene to access windows (iOS 15+)
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            // draw the windows of the scene the user is on
+            if let windowScene = UIApplication.shared.activeWindowScene {
                 for window in windowScene.windows {
                     window.drawHierarchy(in: screenBounds, afterScreenUpdates: true)
                 }
@@ -437,9 +436,19 @@
     // MARK: - EXTENSION UIApplication
     extension UIApplication {
 
+        /// the window scene the user is interacting with, apps built with the iOS 27 SDK always use scenes
+        /// and can have more than one (iPad multi window, CarPlay, external display), so the first one may be wrong
+        var activeWindowScene: UIWindowScene? {
+            let windowScenes = connectedScenes.compactMap { $0 as? UIWindowScene }
+            return windowScenes.first { $0.activationState == .foregroundActive }
+                ?? windowScenes.first { $0.activationState == .foregroundInactive }
+                ?? windowScenes.first
+        }
+
+        /// key window of the active scene, falls back to any key window
         var activeWindow: UIWindow? {
-            return
-                connectedScenes
+            return activeWindowScene?.windows.first { $0.isKeyWindow }
+                ?? connectedScenes
                 .compactMap { $0 as? UIWindowScene }
                 .flatMap { $0.windows }
                 .first { $0.isKeyWindow }
