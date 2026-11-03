@@ -1,6 +1,6 @@
 use_frameworks!
 
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 target 'AppsOnAir-AppRemark_Example' do
   pod 'AppsOnAir-AppRemark', :path => '../'
@@ -10,5 +10,16 @@ target 'AppsOnAir-AppRemark_Example' do
     inherit! :search_paths
 
 
+  end
+end
+
+# Xcode 27 builds only iOS 15 and above, raise pods that still declare an older target
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 15.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
+    end
   end
 end
