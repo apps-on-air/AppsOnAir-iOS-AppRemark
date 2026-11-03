@@ -60,12 +60,7 @@
         }
 
         static private func fetchLocationPermission() -> String {
-            var status: CLAuthorizationStatus = .notDetermined
-            if #available(iOS 14.0, *) {
-                status = CLLocationManager().authorizationStatus
-            } else {
-                status = CLLocationManager.authorizationStatus()
-            }
+            let status = CLLocationManager().authorizationStatus
 
             switch status {
             case .authorizedAlways: return "authorizedAlways"

@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git', :tag => s.version.to_s }
 
   s.swift_version  = '5.0'
-  s.ios.deployment_target = '14.0'
+  s.ios.deployment_target = '15.0'
 
   s.dependency 'IQKeyboardToolbarManager', '1.1.3'
   s.dependency 'iOSDropDown', '0.4.0'

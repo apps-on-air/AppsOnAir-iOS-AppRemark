@@ -52,7 +52,7 @@ targets: [
 
 ## Requirements
 
-Minimum deployment target: 14.0
+Minimum deployment target: 15.0
 
 
 ## USAGE 
