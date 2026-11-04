@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.version          = '1.3.0'
   s.summary          = 'AppsOnAir services for user feedback submission.'
   
-  s.homepage         = 'https://documentation.appsonair.com/category/appremark-beta'
+  s.homepage         = 'https://documentation.appsonair.com/category/appremark'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'devtools-logicwind' => 'devtools@logicwind.com' }
   s.source           = { :git => 'https://github.com/apps-on-air/AppsOnAir-iOS-AppRemark.git', :tag => s.version.to_s }
