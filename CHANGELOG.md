@@ -1,4 +1,4 @@
-## 1.4.0
+## 1.3.0
 
 * Raised minimum deployment target to iOS 15.0, as Xcode 27 no longer builds for older versions.
 * Added support for iOS 27 SDK: picks the active window scene for screenshots and theme detection, and the example app now uses the UIScene lifecycle.
