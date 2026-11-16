@@ -31,7 +31,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apps-on-air/AppsOnAir-iOS-Core.git",
-            from: "1.2.0"
+            from: "1.3.0"
         ),
     ],
     targets: [

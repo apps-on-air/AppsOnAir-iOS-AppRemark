@@ -1,3 +1,8 @@
+## 1.3.1
+
+* Updated `AppsOnAir-Core` dependency to 1.3.0 (iOS 27 support; drops ReachabilitySwift in favour of `NWPathMonitor`).
+* Updated CocoaPods `IQKeyboardToolbarManager` dependency to 1.1.5 to match SPM.
+
 ## 1.3.0
 
 * Raised minimum deployment target to iOS 15.0, as Xcode 27 no longer builds for older versions.
