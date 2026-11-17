@@ -2,7 +2,6 @@
     import UIKit
     import Foundation
     import Combine
-    import IQKeyboardToolbarManager
     import AVFoundation
     import AppsOnAir_Core
 
@@ -167,11 +166,6 @@
                 if let shakeSensitivity = self.shakeSensitivity {
                     ShakeDetector.shared.start(sensitivity: shakeSensitivity)
                 }
-            }
-
-            // To enable for managing distance between keyboard and textField.
-            DispatchQueue.main.async {
-                IQKeyboardToolbarManager.shared.isEnabled = true
             }
         }
 

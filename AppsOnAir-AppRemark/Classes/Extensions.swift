@@ -1,11 +1,6 @@
 #if canImport(UIKit)
     import UIKit
     import Foundation
-    #if SWIFT_PACKAGE
-    import Toast        // SPM module name
-    #else
-    import Toast_Swift  // CocoaPods module name
-    #endif
     import AVKit
     import Photos
     import AppsOnAir_Core
@@ -187,7 +182,7 @@
             message: String, duration: Double = 2.0, completion: ToastCompletionHandler? = nil
         ) {
             DispatchQueue.main.async {
-                self.view.makeToast(message, duration: duration)
+                self.view.presentToast(message, duration: duration)
                 DispatchQueue.main.asyncAfter(
                     deadline: .now(),
                     execute: {
@@ -320,6 +315,51 @@
 
     // MARK: - EXTENSION UIView
     extension UIView {
+
+        /// Shows a dark rounded message near the bottom of the view, then fades it out
+        func presentToast(_ message: String, duration: TimeInterval) {
+            let container = UIView()
+            container.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+            container.layer.cornerRadius = 10
+            container.alpha = 0
+            container.isUserInteractionEnabled = false
+            container.translatesAutoresizingMaskIntoConstraints = false
+            container.accessibilityIdentifier = "appRemarkToast"
+
+            let label = UILabel()
+            label.text = message
+            label.textColor = .white
+            label.font = .systemFont(ofSize: 16)
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            label.translatesAutoresizingMaskIntoConstraints = false
+
+            container.addSubview(label)
+            addSubview(container)
+
+            NSLayoutConstraint.activate([
+                label.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+                label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
+                label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+                label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+                container.centerXAnchor.constraint(equalTo: centerXAnchor),
+                container.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.8),
+                container.bottomAnchor.constraint(
+                    equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            ])
+
+            UIView.animate(
+                withDuration: 0.2, delay: 0, options: [.curveEaseOut, .allowUserInteraction],
+                animations: { container.alpha = 1 }
+            ) { _ in
+                UIView.animate(
+                    withDuration: 0.2, delay: duration, options: [.curveEaseIn],
+                    animations: { container.alpha = 0 }
+                ) { _ in
+                    container.removeFromSuperview()
+                }
+            }
+        }
         /*===================================================
          * function Purpose: CAPTURE SNAPSHOT OF SCREEN
          ===================================================*/

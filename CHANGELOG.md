@@ -1,7 +1,12 @@
 ## 1.3.1
 
 * Updated `AppsOnAir-Core` dependency to 1.3.0 (iOS 27 support; drops ReachabilitySwift in favour of `NWPathMonitor`).
-* Updated CocoaPods `IQKeyboardToolbarManager` dependency to 1.1.5 to match SPM.
+* Updated `LWPhotoEditor` dependency to 0.3.0 (iOS 27 support, minimum iOS 15.0), so `pod lib lint` passes on Xcode 27.
+* Removed the `Toast-Swift`, `iOSDropDown` and `IQKeyboardToolbarManager` dependencies in favour of native UIKit:
+    * Toast messages use a built-in toast view.
+    * The remark type picker uses a native `UIButton` menu.
+    * The description field has a Done button above the keyboard, and tapping outside it hides the keyboard.
+* The SDK no longer enables `IQKeyboardToolbarManager` across the host app. Apps that relied on its keyboard toolbar for their own text fields should add `IQKeyboardManager` themselves.
 
 ## 1.3.0
 

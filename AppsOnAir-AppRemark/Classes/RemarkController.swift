@@ -2,7 +2,6 @@
     import UIKit
     import Foundation
 
-    import iOSDropDown
     import AppsOnAir_Core
 
     class RemarkController: UIViewController {
@@ -15,7 +14,7 @@
 
         @IBOutlet weak var lblTicketType: UILabel!
         @IBOutlet weak var dropDownTitle: UILabel!
-        @IBOutlet weak var dropDown: DropDown!
+        @IBOutlet weak var dropDown: UIButton!
 
         @IBOutlet weak var lblDescription: UILabel!
         @IBOutlet weak var txtDescription: UITextView!
@@ -57,6 +56,9 @@
         var buttonBackgroundColor: String?
 
         let ticketType = ["Improvement suggestion", "Bug report"]
+        var selectedTicketTypeIndex = 0 {
+            didSet { self.updateTicketTypeMenu() }
+        }
         var selectedImage: [UIImage]? = []
 
         // Loader
@@ -97,24 +99,7 @@
             self.dropDownTitle.text = lblTicketText ?? "Remark Type"
             self.lblTicketType.textColor = UIColor.init(hex: labelColor) ?? sColorTextLightGray
 
-            self.dropDown.text = self.ticketType[0]
-            self.dropDown.optionArray = ticketType
-            self.dropDown?.selectedIndex = 0
-            self.dropDown.isSearchEnable = false
-            self.dropDown.arrowSize = arrowSize ?? CGFloat(12)
-            self.dropDown.arrowColor = arrowColor ?? .black
-            self.dropDown.selectedRowColor = UIColor.white
-            self.dropDown.textColor = sColorTextBlack
-            self.dropDown.backgroundColor = sColorWhite
-            self.dropDown.cornerRadius = 0
-            self.dropDown.addCornerRadius(raduis: raduis)
-            self.dropDown.handleKeyboard = false
-            self.dropDown.checkMarkEnabled = false
-            self.dropDown.itemsColor = sColorTextBlack
-            self.dropDown.didSelect { (selectedText, index, id) in
-                self.view.endEditing(true)
-                self.dropDown.text = self.ticketType[index]
-            }
+            self.setupTicketTypeDropDown()
 
             self.lblDescription.text = descriptionLabelText ?? "Description"
             self.lblDescription.textColor = UIColor.init(hex: labelColor) ?? sColorTextLightGray
@@ -124,6 +109,7 @@
 
             self.txtDescription.addCornerRadius(raduis: raduis)
             self.txtDescription.delegate = self
+            self.setupKeyboardDismissal()
             self.txtDescription.backgroundColor = sColorWhite
             self.txtDescription.text = txtDescriptionHintText ?? descriptionHintText
             self.txtDescription.attributedText = NSAttributedString(
@@ -379,7 +365,7 @@
                     dispatchGroup.notify(queue: .main) {
                         Logger.logInternal("\(systemInfo)")
                         let remarkType: RemarkType =
-                            (self.dropDown.text == self.ticketType.first) ? .suggestion : .bug
+                            (self.selectedTicketTypeIndex == 0) ? .suggestion : .bug
                         let userDescription = self.txtDescription.text.trimmingCharacters(
                             in: .whitespacesAndNewlines)
                         let description =
@@ -569,6 +555,80 @@
             }
             self.selectedImage?.append(image)
             self.clView.reloadData()
+        }
+    }
+    // MARK: - Ticket type drop down
+    extension RemarkController {
+
+        /// Native drop down: a button that opens a menu of ticket types
+        func setupTicketTypeDropDown() {
+            var config = UIButton.Configuration.plain()
+            config.baseForegroundColor = sColorTextBlack
+            config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+            config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer {
+                var attributes = $0
+                attributes.font = UIFont.systemFont(ofSize: 14)
+                return attributes
+            }
+            self.dropDown.configuration = config
+            self.dropDown.contentHorizontalAlignment = .leading
+            self.dropDown.backgroundColor = sColorWhite
+            self.dropDown.addCornerRadius(raduis: raduis)
+            self.dropDown.showsMenuAsPrimaryAction = true
+
+            // arrow pinned to the trailing edge, like the previous drop down
+            let arrow = UIImageView(
+                image: UIImage(
+                    systemName: "chevron.down",
+                    withConfiguration: UIImage.SymbolConfiguration(
+                        pointSize: arrowSize ?? CGFloat(12), weight: .semibold)))
+            arrow.tintColor = arrowColor ?? .black
+            arrow.isUserInteractionEnabled = false
+            arrow.translatesAutoresizingMaskIntoConstraints = false
+            self.dropDown.addSubview(arrow)
+            NSLayoutConstraint.activate([
+                arrow.trailingAnchor.constraint(equalTo: self.dropDown.trailingAnchor, constant: -12),
+                arrow.centerYAnchor.constraint(equalTo: self.dropDown.centerYAnchor),
+            ])
+            self.dropDown.configuration?.contentInsets.trailing = 12 + (arrowSize ?? 12) + 8
+
+            self.updateTicketTypeMenu()
+        }
+
+        func updateTicketTypeMenu() {
+            guard let dropDown = self.dropDown else { return }
+            dropDown.configuration?.title = self.ticketType[self.selectedTicketTypeIndex]
+            dropDown.menu = UIMenu(
+                children: self.ticketType.enumerated().map { index, title in
+                    UIAction(title: title, state: index == self.selectedTicketTypeIndex ? .on : .off)
+                    { [weak self] _ in
+                        self?.view.endEditing(true)
+                        self?.selectedTicketTypeIndex = index
+                    }
+                })
+        }
+    }
+    // MARK: - Keyboard
+    extension RemarkController {
+
+        /// Done toolbar above the keyboard, and tapping outside the text view hides the keyboard
+        func setupKeyboardDismissal() {
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
+            toolbar.items = [
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(
+                    barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard)),
+            ]
+            toolbar.sizeToFit()
+            self.txtDescription.inputAccessoryView = toolbar
+
+            let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tap.cancelsTouchesInView = false
+            self.view.addGestureRecognizer(tap)
+        }
+
+        @objc func dismissKeyboard() {
+            self.view.endEditing(true)
         }
     }
 #endif

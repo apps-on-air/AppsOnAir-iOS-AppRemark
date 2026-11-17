@@ -14,20 +14,8 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/hackiftekhar/IQKeyboardToolbarManager.git",
-            exact: "1.1.5"
-        ),
-        .package(
-            url: "https://github.com/jriosdev/iOSDropDown.git",
-            exact: "0.4.0"
-        ),
-        .package(
-            url: "https://github.com/scalessec/Toast-Swift.git",
-            exact: "5.1.1"
-        ),
-        .package(
             url: "https://github.com/logicwind/LWPhotoEditor.git",
-            exact: "0.2.0"
+            exact: "0.3.0"
         ),
         .package(
             url: "https://github.com/apps-on-air/AppsOnAir-iOS-Core.git",
@@ -38,9 +26,6 @@ let package = Package(
         .target(
             name: "AppsOnAir-AppRemark",
             dependencies: [
-                .product(name: "IQKeyboardToolbarManager", package: "IQKeyboardToolbarManager"),
-                .product(name: "iOSDropDown", package: "iOSDropDown"),
-                .product(name: "Toast", package: "Toast-Swift"),
                 .product(name: "LWPhotoEditor", package: "LWPhotoEditor"),
                 .product(name: "AppsOnAir-Core", package: "AppsOnAir-iOS-Core"),
             ],
