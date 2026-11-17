@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.swift_version  = '5.0'
   s.ios.deployment_target = '15.0'
 
-  s.dependency 'LWPhotoEditor', '0.1.0'
+  s.dependency 'LWPhotoEditor', '0.3.0'
   # AppsOnAir Core pod
   s.dependency 'AppsOnAir-Core', '>= 1.3.0'
   
