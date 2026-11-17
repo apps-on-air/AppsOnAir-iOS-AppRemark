@@ -97,6 +97,24 @@ class RemarkControllerTests: XCTestCase {
         XCTAssertEqual(actions?.map(\.state), [.on, .off])
     }
 
+    func testDescriptionHasDoneToolbar() {
+        controller.loadViewIfNeeded()
+
+        let toolbar = controller.txtDescription.inputAccessoryView as? UIToolbar
+        XCTAssertNotNil(toolbar)
+        let done = toolbar?.items?.last
+        XCTAssertEqual(done?.action, #selector(RemarkController.dismissKeyboard))
+        XCTAssertTrue(done?.target === controller)
+    }
+
+    func testTapOutsideDismissesKeyboardWithoutBlockingTouches() {
+        controller.loadViewIfNeeded()
+
+        let tap = controller.view.gestureRecognizers?.compactMap { $0 as? UITapGestureRecognizer }.first
+        XCTAssertNotNil(tap)
+        XCTAssertEqual(tap?.cancelsTouchesInView, false)
+    }
+
     func testDropDownSelectionUpdatesTitleAndMenu() {
         controller.loadViewIfNeeded()
 

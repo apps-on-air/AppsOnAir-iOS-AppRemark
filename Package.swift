@@ -14,10 +14,6 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/hackiftekhar/IQKeyboardToolbarManager.git",
-            exact: "1.1.5"
-        ),
-        .package(
             url: "https://github.com/logicwind/LWPhotoEditor.git",
             exact: "0.2.0"
         ),
@@ -30,7 +26,6 @@ let package = Package(
         .target(
             name: "AppsOnAir-AppRemark",
             dependencies: [
-                .product(name: "IQKeyboardToolbarManager", package: "IQKeyboardToolbarManager"),
                 .product(name: "LWPhotoEditor", package: "LWPhotoEditor"),
                 .product(name: "AppsOnAir-Core", package: "AppsOnAir-iOS-Core"),
             ],

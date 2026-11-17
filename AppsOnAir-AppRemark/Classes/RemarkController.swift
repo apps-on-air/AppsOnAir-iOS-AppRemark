@@ -109,6 +109,7 @@
 
             self.txtDescription.addCornerRadius(raduis: raduis)
             self.txtDescription.delegate = self
+            self.setupKeyboardDismissal()
             self.txtDescription.backgroundColor = sColorWhite
             self.txtDescription.text = txtDescriptionHintText ?? descriptionHintText
             self.txtDescription.attributedText = NSAttributedString(
@@ -605,6 +606,29 @@
                         self?.selectedTicketTypeIndex = index
                     }
                 })
+        }
+    }
+    // MARK: - Keyboard
+    extension RemarkController {
+
+        /// Done toolbar above the keyboard, and tapping outside the text view hides the keyboard
+        func setupKeyboardDismissal() {
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
+            toolbar.items = [
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(
+                    barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard)),
+            ]
+            toolbar.sizeToFit()
+            self.txtDescription.inputAccessoryView = toolbar
+
+            let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tap.cancelsTouchesInView = false
+            self.view.addGestureRecognizer(tap)
+        }
+
+        @objc func dismissKeyboard() {
+            self.view.endEditing(true)
         }
     }
 #endif
