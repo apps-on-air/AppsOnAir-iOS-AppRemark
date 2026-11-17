@@ -18,10 +18,6 @@ let package = Package(
             exact: "1.1.5"
         ),
         .package(
-            url: "https://github.com/jriosdev/iOSDropDown.git",
-            exact: "0.4.0"
-        ),
-        .package(
             url: "https://github.com/logicwind/LWPhotoEditor.git",
             exact: "0.2.0"
         ),
@@ -35,7 +31,6 @@ let package = Package(
             name: "AppsOnAir-AppRemark",
             dependencies: [
                 .product(name: "IQKeyboardToolbarManager", package: "IQKeyboardToolbarManager"),
-                .product(name: "iOSDropDown", package: "iOSDropDown"),
                 .product(name: "LWPhotoEditor", package: "LWPhotoEditor"),
                 .product(name: "AppsOnAir-Core", package: "AppsOnAir-iOS-Core"),
             ],

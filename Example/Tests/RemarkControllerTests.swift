@@ -88,13 +88,23 @@ class RemarkControllerTests: XCTestCase {
         controller.loadViewIfNeeded()
 
         XCTAssertEqual(controller.ticketType, ["Improvement suggestion", "Bug report"])
-        XCTAssertEqual(controller.dropDown.text, "Improvement suggestion")
-        XCTAssertEqual(controller.dropDown.optionArray, controller.ticketType)
-        XCTAssertEqual(controller.dropDown.selectedIndex, 0)
-        XCTAssertFalse(controller.dropDown.isSearchEnable)
-        XCTAssertEqual(controller.dropDown.arrowSize, 12)
-        XCTAssertFalse(controller.dropDown.checkMarkEnabled)
-        XCTAssertFalse(controller.dropDown.handleKeyboard)
+        XCTAssertEqual(controller.selectedTicketTypeIndex, 0)
+        XCTAssertEqual(controller.dropDown.configuration?.title, "Improvement suggestion")
+        XCTAssertTrue(controller.dropDown.showsMenuAsPrimaryAction)
+
+        let actions = controller.dropDown.menu?.children.compactMap { $0 as? UIAction }
+        XCTAssertEqual(actions?.map(\.title), controller.ticketType)
+        XCTAssertEqual(actions?.map(\.state), [.on, .off])
+    }
+
+    func testDropDownSelectionUpdatesTitleAndMenu() {
+        controller.loadViewIfNeeded()
+
+        controller.selectedTicketTypeIndex = 1
+
+        XCTAssertEqual(controller.dropDown.configuration?.title, "Bug report")
+        let actions = controller.dropDown.menu?.children.compactMap { $0 as? UIAction }
+        XCTAssertEqual(actions?.map(\.state), [.off, .on])
     }
 
     func testLoaderHiddenAfterLoad() {
@@ -557,7 +567,7 @@ class RemarkControllerTests: XCTestCase {
     func testSubmitBugReportType() {
         stubServer(feedback: ["status": "SUCCESS", "message": "OK"])
         controller.loadViewIfNeeded()
-        controller.dropDown.text = controller.ticketType[1]
+        controller.selectedTicketTypeIndex = 1
 
         _ = submitAndWaitForResponse()
 
