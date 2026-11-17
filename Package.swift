@@ -22,10 +22,6 @@ let package = Package(
             exact: "0.4.0"
         ),
         .package(
-            url: "https://github.com/scalessec/Toast-Swift.git",
-            exact: "5.1.1"
-        ),
-        .package(
             url: "https://github.com/logicwind/LWPhotoEditor.git",
             exact: "0.2.0"
         ),
@@ -40,7 +36,6 @@ let package = Package(
             dependencies: [
                 .product(name: "IQKeyboardToolbarManager", package: "IQKeyboardToolbarManager"),
                 .product(name: "iOSDropDown", package: "iOSDropDown"),
-                .product(name: "Toast", package: "Toast-Swift"),
                 .product(name: "LWPhotoEditor", package: "LWPhotoEditor"),
                 .product(name: "AppsOnAir-Core", package: "AppsOnAir-iOS-Core"),
             ],
